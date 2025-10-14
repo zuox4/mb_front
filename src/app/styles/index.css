@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@import "../assets/fonts/codec/fonts.css";
+
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+  --font-codec: "Codec Pro", sans-serif;
+  --color-sch-blue-dark: #043951;
+  --color-sch-green-light: #00a713;
+  --color-sch-blue-ultra: #0e2b35;
+  --font-codec-news: "Codec Pro News", sans-serif;
+  --font-codec-bold: "Codec Pro Bold", sans-serif;
+}
+
+#root {
+  background-image: url("../assets/images/background.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* для параллакс эффекта */
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  border: 1px solid #1a6310; /* или ваш цвет бордера */
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px); /* Идеальная равномерная высота */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* В вашем globals.css или tailwind.config.js */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
