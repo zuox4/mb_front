@@ -61,42 +61,43 @@ const WelcomePage = () => {
         </div>
       </div>
 
-      {/* Быстрая навигация */}
-      <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 ">
-        {filteredNavItems.map((card, index) => {
-          const hasAccess = hasAccessToCard(card.requiredRole || "");
+      {/* Быстрая навигация - видна на всех устройствах с шириной ≥ 768px */}
+      <div className="hidden lg:block">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredNavItems.map((card, index) => {
+            const hasAccess = hasAccessToCard(card.requiredRole || "");
 
-          return (
-            <div
-              key={index}
-              onClick={() => hasAccess && navigate(card.to)}
-              className={`
-                hidden
-                p-6 rounded-xl border-2
-                transition-all duration-300 transform backdrop-blur-sm
-                group
-                ${
-                  hasAccess
-                    ? `cursor-pointer md:block hover:scale-105 hover:bg-sch-blue-ultra/50 hover:shadow-lg border-sch-green-light`
-                    : `hidden`
-                }
-              `}
-            >
-              <div className="text-center">
-                <div className="text-4xl mb-3">{card.icon}</div>
-                <h3 className={`text-lg font-bold mb-1 text-white`}>
-                  {card.label}
-                </h3>
-                <p className="text-white text-sm opacity-80">
-                  {card.description}
-                </p>
-                <div className="mt-3 text-white text-xs opacity-60 group-hover:opacity-100 transition-opacity">
-                  {hasAccess ? "Нажмите для перехода" : "Доступ ограничен"}
+            if (!hasAccess) {
+              return null;
+            }
+
+            return (
+              <div
+                key={index}
+                onClick={() => navigate(card.to)}
+                className="
+            p-6 rounded-xl border-2 border-sch-green-light
+            transition-all duration-300 transform backdrop-blur-sm
+            group cursor-pointer
+            hover:scale-105 hover:bg-sch-blue-ultra/50 hover:shadow-lg
+          "
+              >
+                <div className="text-center">
+                  <div className="text-4xl mb-3">{card.icon}</div>
+                  <h3 className="text-lg font-bold mb-1 text-white">
+                    {card.label}
+                  </h3>
+                  <p className="text-white text-sm opacity-80">
+                    {card.description}
+                  </p>
+                  <div className="mt-3 text-white text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                    Нажмите для перехода
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
