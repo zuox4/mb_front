@@ -16,13 +16,12 @@ const StageItem: React.FC<StageItemProps> = ({ stage, stageNumber }) => {
             Этап {stageNumber}: {stage.title}
           </h5>
           <p className="text-sm text-gray-500 mt-1">
-            Минимальный балл для завершения:{" "}
-            <span className="font-medium">{stage.min_score_for_finished}</span>
+            Для завершения этапа необходимо:{" "}
+            <span className="font-medium">
+              {stage.min_score_for_finished} балла
+            </span>
           </p>
         </div>
-        <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">
-          Порядок: {stage.stage_order}
-        </span>
       </div>
 
       {/* Возможные результаты */}
@@ -38,7 +37,7 @@ const StageItem: React.FC<StageItemProps> = ({ stage, stageNumber }) => {
             >
               <span className="text-sm text-gray-700">{result.title}</span>
               <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">
-                {result.points_for_done} баллов
+                {result.points_for_done} {"балл(а)"}
               </span>
             </div>
           ))}

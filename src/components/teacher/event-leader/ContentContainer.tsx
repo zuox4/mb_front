@@ -11,7 +11,7 @@ const ContentContainer: React.FC<ContentContainerProps> = ({
   className = "",
 }) => {
   return (
-    <div className="max-w-7xl mx-auto lg:px-1 pb-20  md:py-8">
+    <div className=" mx-auto lg:px-1 pb-20  md:py-8">
       <div className={`  ${className}`}>{children}</div>
     </div>
   );

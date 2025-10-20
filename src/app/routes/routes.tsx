@@ -6,17 +6,21 @@ import StudentPage from "@/pages/student/student-page";
 import TeacherPage from "@/pages/teacher/teacher-page";
 
 import FogotPassword from "@/pages/auth/FogotPassword";
+import NotFoundPage from "@/pages/NotFound";
 import MarkBookPage from "@/pages/student/mark-book/mark-book-page";
 import ProjectOfficePage from "@/pages/student/project-office/project-office-page";
 import AdminPage from "@/pages/teacher/admin/admin-page";
+import CreateEventType from "@/pages/teacher/admin/event-types/create-event-type";
+import EventType from "@/pages/teacher/admin/event-types/event-type-id";
 import EventTypes from "@/pages/teacher/admin/event-types/event-types";
+import EventPage from "@/pages/teacher/admin/events/events-page";
+import ProjectOfficesPage from "@/pages/teacher/admin/projects/project-offices-page";
 import ClassLeaderPage from "@/pages/teacher/class-leader/class-leader-page";
 import EventLeaderPage from "@/pages/teacher/event-leader/event-leader-page";
 import ProjectLeaderPage from "@/pages/teacher/project-leader/project-leader-page";
 import WelcomePage from "@/pages/teacher/welcome-page";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import TanStackQueryClientProvider from "../providers/query-client-provider";
-import NotFoundPage from "@/pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +66,19 @@ export const router = createBrowserRouter([
                       {
                         path: "event-types",
                         element: <EventTypes />,
+                      },
+                      {
+                        path: "event-types/create",
+                        element: <CreateEventType />,
+                      },
+                      { path: "event-types/:id", element: <EventType /> },
+                      {
+                        path: "events",
+                        element: <EventPage />,
+                      },
+                      {
+                        path: "project-offices",
+                        element: <ProjectOfficesPage />,
                       },
                     ],
                   },

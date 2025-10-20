@@ -85,7 +85,7 @@ const AddEventTypeForm: React.FC<AddEventTypeFormProps> = ({ onSuccess }) => {
           min_stages_for_completion: 0,
           stages: [],
         });
-
+        alert("Тип мероприятия успешно создан");
         // Вызов callback при успехе
         onSuccess?.();
       },
@@ -104,7 +104,6 @@ const AddEventTypeForm: React.FC<AddEventTypeFormProps> = ({ onSuccess }) => {
           <p className="text-red-800">{error.message}</p>
         </div>
       )}
-
       <form onSubmit={handleSubmit} className="space-y-6">
         <EventTypeBasicInfo
           title={eventTypeData.title}
@@ -120,7 +119,7 @@ const AddEventTypeForm: React.FC<AddEventTypeFormProps> = ({ onSuccess }) => {
         />
 
         <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
-          <button
+          {/* <button
             type="button"
             onClick={() => {
               // Сброс формы при отмене
@@ -135,7 +134,7 @@ const AddEventTypeForm: React.FC<AddEventTypeFormProps> = ({ onSuccess }) => {
             className="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
           >
             Очистить форму
-          </button>
+          </button> */}
 
           <button
             type="submit"

@@ -30,7 +30,7 @@ const EventTypesList: React.FC<EventTypesListProps> = ({
   }
 
   return (
-    <div className="space-y-6">
+    <div className=" gap-2 flex flex-wrap">
       {eventTypes.map((eventType) => (
         <EventTypeCard key={eventType.id} eventType={eventType} />
       ))}
