@@ -15,7 +15,7 @@ const EventsListFilter: React.FC<EventsListFilterProps> = ({
             key={event.id}
             onClick={() => setEventId(event.id)}
             className={`
-              cursor-pointer border-1 rounded-lg p-1 transition-all
+              cursor-pointer border-1 rounded-lg py-2  p-2 px-3 transition-all
               ${
                 selectedEventId === event.id
                   ? "border-sch-green-light bg-sch-green-light bg-opacity-10 text-sch-green-dark"

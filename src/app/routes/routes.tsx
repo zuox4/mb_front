@@ -16,6 +16,7 @@ import ProjectLeaderPage from "@/pages/teacher/project-leader/project-leader-pag
 import WelcomePage from "@/pages/teacher/welcome-page";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import TanStackQueryClientProvider from "../providers/query-client-provider";
+import NotFoundPage from "@/pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -111,4 +112,5 @@ export const router = createBrowserRouter([
     path: "/welcome",
     element: <WelcomeRedirect />,
   },
+  { path: "*", element: <NotFoundPage /> },
 ]);

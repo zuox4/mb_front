@@ -22,7 +22,7 @@ const GroupListFilter: React.FC<GroupListFilterProps> = ({
               key={group.id}
               onClick={() => setGroupId(group.id)}
               className={`
-              cursor-pointer border-1 rounded-lg w-20 p-1 text-center transition-all
+              cursor-pointer border-1 rounded-lg py-2  p-2 px-3 text-center transition-all
               ${
                 selectedGroupId === group.id
                   ? "border-sch-green-light bg-sch-green-light bg-opacity-20 text-white"
@@ -30,7 +30,7 @@ const GroupListFilter: React.FC<GroupListFilterProps> = ({
               }
             `}
             >
-              <div className="font-medium text-center">{group.name}</div>
+              <div className="font-medium text-center">{group.name} класс </div>
             </div>
           ))}
         </div>
