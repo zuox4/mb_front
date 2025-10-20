@@ -45,7 +45,7 @@ const Header = () => {
   };
 
   return (
-    <header className="text-md lg:text-2xl py-2 px-2 h-20 lg:px-20 w-full z-50 rounded-b-2xl bg-[#1B4E71] font-codec justify-between text-white flex flex-row items-end fixed top-0 left-0">
+    <header className="text-md lg:text-2xl py-3 px-2 lg:px-20 w-full z-50 rounded-b-2xl bg-[#1B4E71] font-codec justify-between text-white flex flex-row items-end fixed top-0 left-0">
       <h1 className="uppercase border-b-2 border-sch-green-light">
         Зачетная книжка обучающегося
       </h1>

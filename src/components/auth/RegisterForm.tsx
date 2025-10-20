@@ -11,37 +11,12 @@ import { useAuth } from "@/hooks/auth";
 import { Label } from "@radix-ui/react-label";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-
-const ConfirmPersonData = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(e.target.checked);
-  };
-
-  return (
-    <div className="flex items-start gap-3">
-      <input
-        type="checkbox"
-        id="personal-data"
-        checked={isChecked}
-        onChange={handleCheckboxChange}
-        className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-      />
-      <label
-        htmlFor="personal-data"
-        className="text-sm text-white cursor-pointer"
-      >
-        Нажимая кнопку зарегистрироваться, я подтверждаю согласие на обработку
-        моих персональных данных
-      </label>
-    </div>
-  );
-};
+import ConfirmPersonData from "./PersonDataButton";
 
 const RegisterForm = () => {
   const initialState = { email: "", password: "", confirmPassword: "" };
   const [registerData, setRegisterData] = useState(initialState);
+  const [isChecked, setIsChecked] = useState(false);
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -224,6 +199,10 @@ const RegisterForm = () => {
         <CardFooter className="flex-col gap-2">
           <Button
             disabled={
+              !isChecked ||
+              !registerData.email ||
+              !registerData.password ||
+              !registerData.confirmPassword ||
               !!errors.email ||
               !!errors.password ||
               !!errors.confirmPassword ||
@@ -235,7 +214,10 @@ const RegisterForm = () => {
           >
             {isLoading ? "Отправка" : "Зарегистрироваться"}
           </Button>
-          <ConfirmPersonData />
+          <ConfirmPersonData
+            isChecked={isChecked}
+            setIsChecked={setIsChecked}
+          />
         </CardFooter>
       </Card>
     </>

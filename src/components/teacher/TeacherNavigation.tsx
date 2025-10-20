@@ -54,12 +54,12 @@ const TeacherNavigation: React.FC<TeacherNavigationProps> = () => {
   return (
     <>
       {/* Десктопная версия */}
-      <div className="hidden lg:flex lg:bg-sch-blue-dark lg:rounded-lg p-1 space-x-1">
+      <div className="hidden lg:flex lg:bg-sch-green-light lg:rounded-3xl p-1 space-x-1">
         {filteredNavItems.map((item) => (
           <Link
             key={item.to}
             to={item.to}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+            className={`px-4 py-2 text-sm font-medium rounded-2xl transition-all duration-200 ${
               isActiveLink(item.to)
                 ? "bg-white text-gray-900 shadow-sm"
                 : "text-white hover:text-gray-900"
@@ -72,14 +72,14 @@ const TeacherNavigation: React.FC<TeacherNavigationProps> = () => {
 
       {/* Мобильная версия */}
       {filteredNavItems.length > 1 && (
-        <div className="fixed bottom-4 w-fit  left-1/2 transform -translate-x-1/2 lg:hidden z-50">
-          <div className="bg-white/20 backdrop-blur-md flex justify-between rounded-2xl p-2 border border-white/30">
-            <div className="flex justify-center w-full items-center space-x-4">
+        <div className="fixed bottom-4 w-80  left-1/2 transform -translate-x-1/2 lg:hidden z-50">
+          <div className="bg-white/20 backdrop-blur-md flex justify-between rounded-2xl p-2 ">
+            <div className="flex justify-center w-full items-center space-x-7">
               {filteredNavItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className={`p-3 rounded-2xl transition-all duration-200 ${
+                  className={`p-2 rounded-2xl transition-all duration-200 ${
                     isActiveLink(item.to)
                       ? "bg-white text-gray-900 shadow-sm"
                       : "text-white hover:bg-white/20"
