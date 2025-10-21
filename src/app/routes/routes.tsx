@@ -21,6 +21,7 @@ import ProjectLeaderPage from "@/pages/teacher/project-leader/project-leader-pag
 import WelcomePage from "@/pages/teacher/welcome-page";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import TanStackQueryClientProvider from "../providers/query-client-provider";
+import CreateEventPage from "@/pages/teacher/admin/events/create-event-page";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
                       {
                         path: "events",
                         element: <EventPage />,
+                      },
+                      {
+                        path: "events/create-event",
+                        element: <CreateEventPage />,
                       },
                       {
                         path: "project-offices",
