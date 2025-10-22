@@ -13,7 +13,10 @@ import AdminPage from "@/pages/teacher/admin/admin-page";
 import CreateEventType from "@/pages/teacher/admin/event-types/create-event-type";
 import EventType from "@/pages/teacher/admin/event-types/event-type-id";
 import EventTypes from "@/pages/teacher/admin/event-types/event-types";
+import CreateEventPage from "@/pages/teacher/admin/events/create-event-page";
+import EventPageById from "@/pages/teacher/admin/events/event-id";
 import EventPage from "@/pages/teacher/admin/events/events-page";
+import GroupsPage from "@/pages/teacher/admin/groups/groups-page";
 import ProjectOfficesPage from "@/pages/teacher/admin/projects/project-offices-page";
 import ClassLeaderPage from "@/pages/teacher/class-leader/class-leader-page";
 import EventLeaderPage from "@/pages/teacher/event-leader/event-leader-page";
@@ -21,7 +24,6 @@ import ProjectLeaderPage from "@/pages/teacher/project-leader/project-leader-pag
 import WelcomePage from "@/pages/teacher/welcome-page";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import TanStackQueryClientProvider from "../providers/query-client-provider";
-import CreateEventPage from "@/pages/teacher/admin/events/create-event-page";
 
 export const router = createBrowserRouter([
   {
@@ -82,8 +84,16 @@ export const router = createBrowserRouter([
                         element: <CreateEventPage />,
                       },
                       {
+                        path: "events/:id",
+                        element: <EventPageById />,
+                      },
+                      {
                         path: "project-offices",
                         element: <ProjectOfficesPage />,
+                      },
+                      {
+                        path: "groups",
+                        element: <GroupsPage />,
                       },
                     ],
                   },

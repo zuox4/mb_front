@@ -13,17 +13,21 @@ interface EventListProps {
 export const EventList: React.FC<EventListProps> = ({ events }) => {
   return (
     <>
-      <h4 className="text-lg font-medium mb-4 text-white">Мероприятия</h4>
+      <h4 className="text-lg font-medium text-white">Мероприятия</h4>
 
       <div className="flex flex-wrap gap-2">
-        {events.map((event) => (
-          <span
-            key={event.id}
-            className="border border-white text-white p-2 rounded-2xl"
-          >
-            {event.title}
-          </span>
-        ))}
+        {events.length > 0 ? (
+          events.map((event) => (
+            <span
+              key={event.id}
+              className="border border-white text-white p-2 rounded-2xl"
+            >
+              {event.title}
+            </span>
+          ))
+        ) : (
+          <span className="text-gray-400">Нет добавленных мероприятий</span>
+        )}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { MoreHorizontal, Calendar } from "lucide-react";
+import { Calendar, MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface EventItemProps {
@@ -12,14 +12,14 @@ const EventItem = ({ id, title, date, participants }: EventItemProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="group relative w-80 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100   p-4">
-      <div className="flex items-start justify-between">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="p-1.5 bg-amber-100 rounded-lg">
-              <Calendar className="w-4 h-4 text-amber-600" />
+    <div className="group relative w-100 bg-gradient-to-r from-sch-green-light/40 to-sch-green-light/20 hover:from-sch-green-light/50 hover:to-sch-green-light/30 hover:shadow-lg transition-all duration-300 rounded-xl p-4 border border-sch-green-light/30">
+      <div className="flex items-center justify-between">
+        <div className="flex-1 min-w-0 items-center flex">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-lg">
+              <Calendar className="w-4 h-4 text-white" />
             </div>
-            <h3 className="font-codec text-gray-900  truncate ">{title}</h3>
+            <h3 className="font-codec-news text-white  truncate ">{title}</h3>
           </div>
 
           {(date || participants) && (
@@ -36,10 +36,10 @@ const EventItem = ({ id, title, date, participants }: EventItemProps) => {
 
         <button
           onClick={() => navigate(`${id}`)}
-          className="ml-3 p-2 rounded-lg cursor-pointer bg-gray-50 hover:bg-sch-green-light/20 text-gray-400 hover:text-amber-600 transition-colors duration-200 group-hover:scale-110 transform"
+          className="ml-3 p-2 rounded-lg bg-gray-200/10 text-gray-300"
           title="Подробнее"
         >
-          <MoreHorizontal className="w-5 h-5" />
+          <MoreHorizontal className="w-5 h-5  text-white cursor-pointer" />
         </button>
       </div>
 

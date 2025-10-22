@@ -1,6 +1,6 @@
+import Loader from "@/components/owner/Loader";
 import { useEvents } from "@/hooks/admin/useAdminEvents";
 import EventItem from "./EventItem";
-import Loader from "@/components/owner/Loader";
 
 const EventList = () => {
   const { isLoading, data } = useEvents();

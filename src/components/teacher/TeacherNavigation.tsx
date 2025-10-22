@@ -54,15 +54,15 @@ const TeacherNavigation: React.FC<TeacherNavigationProps> = () => {
   return (
     <>
       {/* Десктопная версия */}
-      <div className="hidden lg:flex lg:bg-sch-green-light lg:rounded-3xl p-1 space-x-1">
+      <div className="hidden lg:flex lg:bg-gradient-to-r lg:from-sch-green-light/20 w-full p-1 space-x-1">
         {filteredNavItems.map((item) => (
           <Link
             key={item.to}
             to={item.to}
-            className={`px-4 py-2 text-sm font-medium rounded-2xl transition-all duration-200 ${
+            className={`px-4 py-2 text-sm font-medium rounded transition-all duration-200 ${
               isActiveLink(item.to)
                 ? "bg-white text-gray-900 shadow-sm"
-                : "text-white hover:text-gray-900"
+                : "text-white hover:text-white"
             }`}
           >
             {item.label}

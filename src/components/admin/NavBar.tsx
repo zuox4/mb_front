@@ -1,4 +1,4 @@
-import { Calendar, GroupIcon, List, Menu, X } from "lucide-react";
+import { Calendar, Group, Landmark, List, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -17,7 +17,12 @@ const NavBar = () => {
     {
       path: "project-offices",
       title: "Проектные оффисы",
-      icon: <GroupIcon size={20} />,
+      icon: <Landmark size={20} />,
+    },
+    {
+      path: "groups",
+      title: "Классы",
+      icon: <Group size={20} />,
     },
   ];
 
