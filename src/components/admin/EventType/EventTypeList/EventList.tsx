@@ -10,7 +10,7 @@ interface EventListProps {
   onAddEvent?: () => void;
 }
 
-export const EventList: React.FC<EventListProps> = ({ events, onAddEvent }) => {
+export const EventList: React.FC<EventListProps> = ({ events }) => {
   return (
     <>
       <h4 className="text-lg font-medium mb-4 text-white">Мероприятия</h4>
@@ -24,12 +24,6 @@ export const EventList: React.FC<EventListProps> = ({ events, onAddEvent }) => {
             {event.title}
           </span>
         ))}
-        {/* <span
-          className="text-white p-2 rounded-2xl flex gap-2 cursor-pointer bg-sch-green-light"
-          onClick={onAddEvent}
-        >
-          Добавить <Plus size={18} />
-        </span> */}
       </div>
     </>
   );

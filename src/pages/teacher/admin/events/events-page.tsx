@@ -8,12 +8,12 @@ const EventsPage = () => {
     <div className="min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-white font-codec text-2xl">Мероприятия</h1>
-        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-xs px-4 py-2 rounded-3xl">
+        <div
+          onClick={() => navigation("create-event")}
+          className="flex items-center gap-2 bg-white/10 backdrop-blur-xs px-4 py-2 rounded-3xl cursor-pointer"
+        >
           <span className="text-white">Добавить новое</span>
-          <Plus
-            className="text-white cursor-pointer"
-            onClick={() => navigation("create-event")}
-          />
+          <Plus className="text-white cursor-pointer" />
         </div>
       </div>
 

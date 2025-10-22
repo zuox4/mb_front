@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import EventList from "@/components/admin/EventType/EventTypeList/EventList";
 import StageList from "@/components/admin/EventType/EventTypeList/StageList";
+import Boss from "@/components/admin/EventType/LeaderView";
 import BackButton from "@/components/student/markbook/BackButton";
 import { useLocation } from "react-router-dom";
 
@@ -20,20 +21,7 @@ const EventType = () => {
       <div className="flex flex-col gap-5">
         <div>
           <h4 className="text-lg font-medium mb-4 text-white">Ответственный</h4>
-          {
-            <div className="bg-white p-4 rounded-lg w-fit">
-              {eventType.leader ? (
-                <>
-                  <h1 className="font-codec">
-                    {eventType.leader?.display_name}
-                  </h1>
-                  <h1>{eventType.leader?.email}</h1>
-                </>
-              ) : (
-                "Не назначен"
-              )}
-            </div>
-          }
+          <Boss leader={eventType.leader} />
         </div>
 
         <StageList stages={eventType.stages} />

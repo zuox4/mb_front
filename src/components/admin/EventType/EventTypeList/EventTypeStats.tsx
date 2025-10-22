@@ -11,7 +11,7 @@ export const EventTypeStats: React.FC<EventTypeStatsProps> = ({
   const totalStages = eventType.stages.length;
 
   return (
-    <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+    <div className="flex flex-wrap gap-4 text-sm  text-white">
       <StatItem icon="stages" text={`${totalStages} этап(ов)`} />
       {eventType.min_stages_for_completion > 0 && (
         <StatItem
