@@ -48,8 +48,8 @@ const EventTypesPage: React.FC = () => {
           </button>
         </div>
       )}
-      <div className="flex w-fit mb-7 items-center cursor-pointer gap-2 bg-white/10 backdrop-blur-xs px-4 py-2 rounded-3xl">
-        <span className="text-white">Добавить новый</span>
+      <div className="flex w-fit mb-7 items-center cursor-pointer gap-2 bg-white/10 backdrop-blur-xs px-4 py-2 rounded">
+        <span className="text-white">Добавить</span>
         <Plus
           className="text-white cursor-pointer"
           onClick={() => navigation("create")}

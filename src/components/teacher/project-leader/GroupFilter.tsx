@@ -27,7 +27,7 @@ const GroupFilter: React.FC<GroupFilterProps> = ({
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4 mb-6">
+    <div className="bg-white/10 rounded-lg p-4 mb-6">
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-lg font-medium text-white">Фильтр по классам</h3>
       </div>
@@ -38,7 +38,7 @@ const GroupFilter: React.FC<GroupFilterProps> = ({
             key={group.id}
             onClick={() => handleGroupToggle(group.name)}
             className={`
-              px-3 py-2 rounded-lg border transition-all text-sm
+              px-3 py-2 rounded-lg border transition-all text-sm cursor-pointer
               ${
                 selectedGroups.includes(group.name)
                   ? "bg-sch-green-light text-white border-sch-green-light"

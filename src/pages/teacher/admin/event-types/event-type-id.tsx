@@ -15,7 +15,7 @@ const EventType = () => {
         <BackButton path="/teacher/admin/event-types" title="Назад" />
 
         <h1 className="text-center flex-2  font-codec text-2xl text-white top-0">
-          Тип пероприятия - {eventType.title}
+          Тип мероприятия - {eventType.title}
         </h1>
       </div>
       <div className="flex flex-col gap-5">

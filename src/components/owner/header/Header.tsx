@@ -97,7 +97,8 @@ const Header = () => {
             </div>
           )}
           <DropdownMenuSeparator className="my-3 bg-gray-200" />
-
+          {/* <div className="flex flex-col items-center mt-3"> */}
+          {/* </div> */}
           <Button
             variant="ghost"
             onClick={logout}

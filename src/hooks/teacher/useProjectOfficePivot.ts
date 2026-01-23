@@ -13,6 +13,7 @@ export interface PivotStudent {
       total_score: number;
       completed_stages_count: number;
       min_stages_required: number;
+      is_important: boolean;
       status: "зачет" | "незачет" | "в процессе" | "не начато";
       stages: Array<{
         name: string;

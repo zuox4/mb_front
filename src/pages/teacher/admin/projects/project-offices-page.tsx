@@ -1,7 +1,8 @@
 import { useOffices } from "@/hooks/admin/useOffices";
 import { STATIC_BASE_URL } from "@/services/api/api";
-import { BookMarked, ChevronDown, ChevronUp, Loader, User } from "lucide-react";
+import { BookMarked, ChevronDown, ChevronUp, Loader } from "lucide-react";
 import { useState } from "react";
+import LeaderView from "./LeaderView";
 
 const ProjectOfficesPage = () => {
   const { data, isLoading } = useOffices();
@@ -46,7 +47,7 @@ const ProjectOfficesPage = () => {
   return (
     <div className="min-h-screen">
       <h1 className="text-white font-codec text-2xl mb-6">Проектные офисы</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {data.map((office) => {
           const isDescriptionExpanded = expandedDescriptions.has(office.id);
           const description = office.description || "Описание отсутствует";
@@ -132,12 +133,11 @@ const ProjectOfficesPage = () => {
                 {/* Руководитель */}
                 <div>
                   <h2 className="font-codec text-white mb-2">Руководитель</h2>
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-sch-green-light" />
-                    <span className="text-white">
-                      {office.leader_uid || "Не назначен"}
-                    </span>
-                  </div>
+                  {office.leader_uid ? (
+                    <LeaderView id={office.leader_uid} />
+                  ) : (
+                    "Не назначен"
+                  )}
                 </div>
               </div>
             </div>

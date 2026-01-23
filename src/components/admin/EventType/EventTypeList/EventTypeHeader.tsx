@@ -5,7 +5,9 @@ interface EventTypeHeaderProps {
 }
 
 export const EventTypeHeader: React.FC<EventTypeHeaderProps> = ({ title }) => (
-  <h3 className="text-xl font-semibold text-white ">{title}</h3>
+  <div className="min-w-0">
+    <h3 className="text-[16px] font-semibold text-white truncate">{title}</h3>
+  </div>
 );
 
 export default EventTypeHeader;

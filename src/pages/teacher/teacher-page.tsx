@@ -9,11 +9,11 @@ const TeacherPage = () => {
   return (
     <div className="min-h-screen px-3">
       <Header />
-      <div className="pt-20">
-        <div className="flex flex-col items-center mt-3">
-          <TeacherNavigation />
-        </div>
+      <div className="pt-12">
+        <TeacherNavigation />
+      </div>
 
+      <div className="">
         {/* Main Content */}
         <ContentContainer>
           <Outlet />

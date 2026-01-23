@@ -1,5 +1,7 @@
 // components/EventList.tsx
 
+import { useNavigate } from "react-router-dom";
+
 interface Event {
   id: string;
   title: string;
@@ -11,16 +13,20 @@ interface EventListProps {
 }
 
 export const EventList: React.FC<EventListProps> = ({ events }) => {
+  const navigate = useNavigate();
   return (
     <>
-      <h4 className="text-lg font-medium text-white">Мероприятия</h4>
+      <h4 className="text-lg font-medium text-white">
+        Мероприятия и статистика
+      </h4>
 
       <div className="flex flex-wrap gap-2">
         {events.length > 0 ? (
           events.map((event) => (
             <span
               key={event.id}
-              className="border border-white text-white p-2 rounded-2xl"
+              className="border truncate border-white text-white p-2 rounded-2xl cursor-pointer"
+              onClick={() => navigate(`/teacher/admin/events/${event.id}`)}
             >
               {event.title}
             </span>

@@ -82,7 +82,7 @@ const ProjectOfficeDashboard: React.FC = () => {
       {/* Сводная таблица */}
       <div className="mt-8">
         {pivotData && pivotData.length > 0 ? (
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-white/5 rounded-lg p-4">
             <div className="flex flex-col justify-between items-center md:flex-row mb-4">
               <h2 className="text-xl font-semibold">
                 Сводная таблица результатов
