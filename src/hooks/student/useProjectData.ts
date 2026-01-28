@@ -6,6 +6,7 @@ export interface Event {
   id: number;
   title: string;
   is_active?: boolean;
+  is_important?: boolean;
 }
 interface ApiProjectOffice {
   title: string;

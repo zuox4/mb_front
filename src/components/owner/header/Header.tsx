@@ -9,6 +9,9 @@ import {
 import { useAuth } from "@/hooks/auth";
 import { useStudentData } from "@/hooks/student/useStudentData";
 import { useUserData } from "@/hooks/user/useUserData";
+import GroupLeaderCard from "./GroupLeaderCard";
+import { Link } from "react-router-dom";
+import Navigation from "./Navigation";
 
 const Header = () => {
   const { user } = useAuth();
@@ -68,34 +71,83 @@ const Header = () => {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent className="lg:bg-white backdrop-blur-lg flex flex-col items-center rounded-none h-screen w-screen  top-0 px-3 lg:w-100 lg:h-fit border-0 lg:rounded-2xl text-white lg:text-black">
-          <div className="flex flex-col items-center space-y-3 mt-10">
-            <Avatar className="w-30 h-30 overflow-hidden">
-              <AvatarImage
-                src={image}
-                alt={display_name}
-                className="transform scale-110 object-cover w-full h-full"
-              />
-              <AvatarFallback className="bg-sch-green-light text-5xl text-white">
-                {getShortName(display_name)}
-              </AvatarFallback>
-            </Avatar>
+          <div
+            className="
+  w-full 
+  
+"
+          >
+            <div className="flex flex-col items-center md:flex-row md:items-start gap-5">
+              {/* Аватар */}
+              <div className="relative">
+                <Avatar className="w-28 h-28 md:w-24 md:h-24 overflow-hidden border-4 border-white/30 md:border-gray-100 shadow-xl">
+                  <AvatarImage
+                    src={image}
+                    alt={display_name}
+                    className="transform scale-110 object-cover w-full h-full"
+                  />
+                  <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-400 text-4xl text-white">
+                    {getShortName(display_name)}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
 
-            <div className="text-center flex flex-col items-center gap-3">
-              <h3 className="font-codec text-xl">{display_name}</h3>
-              <p className="font-codec-news text-lg text-white md:text-gray-600">
-                {email}
-              </p>
-              <p className=" font-codec-news px-2 bg-sch-green-light text-white w-fit rounded">
-                {getRoleDisplayName(role)} {data?.class_name}
-              </p>
+              {/* Информация */}
+              <div className="flex-1 text-center md:text-left ">
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="font-medium text-xl text-white md:text-gray-800">
+                      {display_name}
+                    </h3>
+                    <p className="text-lg text-white/80 md:text-gray-600 mt-1">
+                      {email}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                    <span
+                      className="
+            px-3 py-1.5 
+            bg-gradient-to-r from-sch-green-light to-green-500 
+            text-white font-medium 
+            rounded-full
+            text-sm
+          "
+                    >
+                      {getRoleDisplayName(role)}
+                    </span>
+
+                    {data?.class_name && (
+                      <span
+                        className="
+              px-3 py-1.5 
+              bg-blue-500/20 
+              text-blue-300 md:text-blue-600 font-medium 
+              rounded-full
+              text-sm
+            "
+                      >
+                        Класс: {data.class_name}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Разделитель */}
+            <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent md:via-gray-200 my-4"></div>
           </div>
-          {data?.group_leader && (
-            <div className="text-white lg:text-gray-700 text-left w-full mt-2">
-              Классный руководитель:
-              <br /> {data.group_leader.display_name}
-            </div>
-          )}
+          <Navigation />
+
+          {/* {data?.group_leader && (
+            <GroupLeaderCard
+              dispay_name={data.group_leader.display_name}
+              image={data.group_leader.image || ""}
+              max_url={data.group_leader.max_url || ""}
+            />
+          )} */}
+
           <DropdownMenuSeparator className="my-3 bg-gray-200" />
           {/* <div className="flex flex-col items-center mt-3"> */}
           {/* </div> */}

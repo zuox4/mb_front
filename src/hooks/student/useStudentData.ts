@@ -2,7 +2,7 @@ import api from "@/services/api/api";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../auth";
 
-interface BaseLeader {
+export interface BaseLeader {
   display_name: string;
   about: string | null;
   image: string | null;

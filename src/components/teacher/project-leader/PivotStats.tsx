@@ -4,7 +4,6 @@ import React, { useState, useMemo, useEffect } from "react";
 import {
   ChevronRight,
   Users,
-  Award,
   Target,
   CheckCircle,
   Clock,
@@ -179,10 +178,10 @@ const PivotStats: React.FC<PivotStatsProps> = ({
 
     if (eventData.some((e) => e.total_score === 0)) {
       const notStartedCount = eventData.filter(
-        (e) => e.total_score === 0
+        (e) => e.total_score === 0,
       ).length;
       recommendations.push(
-        `${notStartedCount} учеников еще не начали. Нужно напомнить о мероприятии`
+        `${notStartedCount} учеников еще не начали. Нужно напомнить о мероприятии`,
       );
     }
 
@@ -190,7 +189,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
       eventData.reduce((sum, e) => sum + e.total_score, 0) / eventData.length;
     if (avgScore < 60) {
       recommendations.push(
-        "Средний балл ниже 60. Рассмотрите возможность дополнительной подготовки"
+        "Средний балл ниже 60. Рассмотрите возможность дополнительной подготовки",
       );
     }
 
@@ -203,7 +202,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
       // Определяем, какие мероприятия уже выбраны (в проектный офис)
       const selectedEventIds = new Set(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        projectOfficeEvents.map((event: any) => event.id)
+        projectOfficeEvents.map((event: any) => event.id),
       );
 
       // Получаем ID мероприятий, которые есть в статистике
@@ -231,7 +230,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
         ? [...modalEventsData].sort((a, b) => {
             // Сначала сортируем по типу мероприятия
             const typeCompare = (a.eventType || "").localeCompare(
-              b.eventType || ""
+              b.eventType || "",
             );
             if (typeCompare !== 0) return typeCompare;
             // Затем по названию
@@ -258,8 +257,8 @@ const PivotStats: React.FC<PivotStatsProps> = ({
       prev.map((event) =>
         event.id === eventId
           ? { ...event, isSelected: !event.isSelected }
-          : event
-      )
+          : event,
+      ),
     );
   };
 
@@ -289,7 +288,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
   // Сброс всех выделений
   const deselectAllEvents = () => {
     setModalEvents((prev) =>
-      prev.map((event) => ({ ...event, isSelected: false }))
+      prev.map((event) => ({ ...event, isSelected: false })),
     );
   };
 
@@ -305,7 +304,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
     if (!searchTerm.trim()) return modalEvents;
 
     return modalEvents.filter((event) =>
-      event.title.toLowerCase().includes(searchTerm.toLowerCase())
+      event.title.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [modalEvents, searchTerm]);
 
@@ -360,19 +359,19 @@ const PivotStats: React.FC<PivotStatsProps> = ({
       const recommendations = generateRecommendations(eventData);
 
       const completedInEvent = eventData.filter(
-        (event) => event.completed_stages_count >= event.min_stages_required
+        (event) => event.completed_stages_count >= event.min_stages_required,
       ).length;
 
       const averageEventScore =
         eventData.length > 0
           ? eventData.reduce(
               (sum, event) => sum + (event.total_score || 0),
-              0
+              0,
             ) / eventData.length
           : 0;
       const projectOfficeEvent = projectOfficeEvents.find(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (event: any) => event.id === eventIdNum
+        (event: any) => event.id === eventIdNum,
       );
       const isImportant = projectOfficeEvent
         ? projectOfficeEvent.is_important === true
@@ -407,11 +406,11 @@ const PivotStats: React.FC<PivotStatsProps> = ({
     const totalEvents = eventStats.length;
     const totalCompleted = eventStats.reduce(
       (sum, event) => sum + event.completed,
-      0
+      0,
     );
     const totalPossible = eventStats.reduce(
       (sum, event) => sum + event.total,
-      0
+      0,
     );
     const overallCompletionRate =
       totalPossible > 0 ? (totalCompleted / totalPossible) * 100 : 0;
@@ -423,7 +422,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
 
     // Подсчет мероприятий в проекте
     const eventsInProject = eventStats.filter(
-      (event) => event.isInProfile
+      (event) => event.isInProfile,
     ).length;
 
     return {
@@ -535,7 +534,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
             </div>
           </div>
 
-          <div className="bg-white/10 rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
+          {/* <div className="bg-white/10 rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
             <div className="flex items-center gap-2 mb-2">
               <Award className="w-5 h-5 text-purple-400" />
               <span className="text-sm text-gray-300">Мероприятий</span>
@@ -546,7 +545,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
             <div className="text-xs text-emerald-400 mt-1">
               {totalStats.eventsInProject} в проекте
             </div>
-          </div>
+          </div> */}
 
           <div className="bg-white/10 rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
             <div className="flex items-center gap-2 mb-2">
@@ -575,9 +574,6 @@ const PivotStats: React.FC<PivotStatsProps> = ({
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-lg font-semibold text-white">
                 Список мероприятий проекта
-                <span className="text-sm text-gray-400 ml-2">
-                  ({totalStats.eventsInProject} в проекте)
-                </span>
               </h4>
             </div>
 
@@ -603,7 +599,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
                           setExpandedEvent(
                             expandedEvent === event.id.toString()
                               ? null
-                              : event.id.toString()
+                              : event.id.toString(),
                           )
                         }
                         className={`p-2 rounded-lg transition-all ${
@@ -746,7 +742,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
                                       {student.score.toFixed(1)} баллов
                                     </span>
                                   </div>
-                                )
+                                ),
                               )
                             ) : (
                               <div className="text-center text-gray-400 py-2">
@@ -776,7 +772,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
                                       {rec}
                                     </span>
                                   </div>
-                                )
+                                ),
                               )
                             ) : (
                               <div className="text-center text-gray-400 py-4">
@@ -936,9 +932,9 @@ const PivotStats: React.FC<PivotStatsProps> = ({
 
                           // Сортируем группы по названию типа
                           const sortedGroups = Object.entries(
-                            groupedEvents
+                            groupedEvents,
                           ).sort(([typeA], [typeB]) =>
-                            typeA.localeCompare(typeB)
+                            typeA.localeCompare(typeB),
                           );
 
                           return sortedGroups.map(([eventType, events]) => (
