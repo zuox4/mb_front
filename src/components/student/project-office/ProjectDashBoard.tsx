@@ -47,20 +47,8 @@ const ProjectDashBoard = ({
               <span className="text-sch-green-light">{data.display_name}</span>
               <br className="" /> в {title}
             </h1>
-
-            <div className="lg:hidden gap-3 flex flex-col">
-              <MarkBookButton />
-            </div>
-
-            {/* Белый текст описания */}
-            <p className="font-codec-news text-[15px] lg:text-xl xl:text-lg leading-relaxed text-justify text-white">
-              {description}
-            </p>
-
-            {/* Блок с учителем и мероприятиями 1:1 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-5 md:gap-20 my-2">
-              {/* Учитель - 50% */}
-
+            {/* Учитель - 50% */}
+            <div className="md:max-w-[50%]">
               {data.project_leader && (
                 <TeacherProfile
                   displayName={data.project_leader.display_name}
@@ -71,7 +59,17 @@ const ProjectDashBoard = ({
                   }
                 />
               )}
+            </div>
 
+            {/* Белый текст описания */}
+            <p className="font-codec-news text-[15px] lg:text-xl xl:text-lg leading-relaxed text-justify text-white">
+              {description}
+            </p>
+            <div className="lg:hidden gap-3 flex flex-col">
+              <MarkBookButton />
+            </div>
+            {/* Блок с учителем и мероприятиями 1:1 */}
+            <div className="grid md:grid-cols-1  gap-5 md:gap-20 my-2">
               <div>
                 <ProjectEvents />
               </div>

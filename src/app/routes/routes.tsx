@@ -25,6 +25,9 @@ import WelcomePage from "@/pages/teacher/welcome-page";
 import { ArrowLeft } from "lucide-react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import TanStackQueryClientProvider from "../providers/query-client-provider";
+import EventsPage from "@/pages/student/events/eventsPage";
+import AchievementsPage from "@/pages/student/achivments/Achivments";
+import ProfilePage from "@/pages/profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -129,6 +132,18 @@ export const router = createBrowserRouter([
               {
                 path: "markBook",
                 element: <MarkBookPage />,
+              },
+              {
+                path: "all-events",
+                element: <EventsPage />,
+              },
+              {
+                path: "achievements",
+                element: <AchievementsPage />,
+              },
+              {
+                path: "profile",
+                element: <ProfilePage />,
               },
             ],
           },

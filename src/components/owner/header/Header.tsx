@@ -9,9 +9,6 @@ import {
 import { useAuth } from "@/hooks/auth";
 import { useStudentData } from "@/hooks/student/useStudentData";
 import { useUserData } from "@/hooks/user/useUserData";
-import GroupLeaderCard from "./GroupLeaderCard";
-import { Link } from "react-router-dom";
-import Navigation from "./Navigation";
 
 const Header = () => {
   const { user } = useAuth();
@@ -77,9 +74,9 @@ const Header = () => {
   
 "
           >
-            <div className="flex flex-col items-center md:flex-row md:items-start gap-5">
+            <div className="flex flex-col items-center md:flex-row md:items-start gap-5 py-10 ">
               {/* Аватар */}
-              <div className="relative">
+              <div className="relative ">
                 <Avatar className="w-28 h-28 md:w-24 md:h-24 overflow-hidden border-4 border-white/30 md:border-gray-100 shadow-xl">
                   <AvatarImage
                     src={image}
@@ -138,7 +135,6 @@ const Header = () => {
             {/* Разделитель */}
             <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent md:via-gray-200 my-4"></div>
           </div>
-          <Navigation />
 
           {/* {data?.group_leader && (
             <GroupLeaderCard

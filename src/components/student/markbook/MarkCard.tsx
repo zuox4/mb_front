@@ -17,11 +17,15 @@ function MarkCard({ mark, isExpanded, onToggle }: MarkCardProps) {
     <div className="bg-white/2 rounded-lg border border-gray-200/40 overflow-hidden">
       {/* Основная строка */}
       <div
-        className="flex items-center justify-between p-4 hover:bg-gray-50/5 cursor-pointer transition-colors"
+        className="flex items-center justify-between p-2 hover:bg-gray-50/5 cursor-pointer transition-colors"
         onClick={onToggle}
       >
         <div className="flex items-center gap-4">
-          <h3 className="font-codec text-white">{mark.eventName}</h3>
+          <h3
+            className={`text-s font-codec text-white ${!isExpanded && "line-clamp-2"}`}
+          >
+            {mark.eventName}
+          </h3>
         </div>
         <div></div>
         <div className="flex items-center gap-4">

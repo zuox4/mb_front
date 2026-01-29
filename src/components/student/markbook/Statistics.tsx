@@ -14,7 +14,7 @@ function Statistics({ marks }: StatisticsProps) {
   const passedStages = marks.reduce(
     (acc, mark) =>
       acc + mark.stages.filter((stage) => stage.status === "зачет").length,
-    0
+    0,
   );
   //   const stagePassRate = totalStages > 0 ? Math.round((passedStages / totalStages) * 100) : 0;
 
@@ -43,7 +43,7 @@ function Statistics({ marks }: StatisticsProps) {
             </div>
           </div>
           <p className="font-codec text-white/80 text-sm mb-1">
-            Всего мероприятий
+            Всего мероприятий для получения зачетной книжки
           </p>
           <p className="font-codec-bold text-2xl text-white">{totalMarks}</p>
         </div>

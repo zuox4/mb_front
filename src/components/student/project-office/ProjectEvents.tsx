@@ -60,7 +60,7 @@ const ProjectEvents = () => {
         <div className="flex space-x-1 bg-gray-900/50 p-1 rounded-xl">
           <button
             onClick={() => setActiveTab("all")}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === "all"
                 ? "bg-white/10 text-white shadow-md"
                 : "text-gray-300 hover:text-white hover:bg-gray-800"
@@ -209,7 +209,7 @@ const EventCard = ({ event }: { event: Event }) => {
           )}
         </div> */}
 
-        <div className="flex-1">
+        <div className="flex justify-between w-full">
           <div className="flex items-start justify-between mb-3">
             <h4 className="font-semibold text-white text-md pr-2">
               {event.title}
@@ -230,7 +230,7 @@ const EventCard = ({ event }: { event: Event }) => {
                 <div
                   className={`w-2 h-2 rounded-full ${event.is_important ? "bg-red-400 animate-pulse" : "bg-blue-400"}`}
                 ></div>
-                {event.is_important ? "Влияет на сертификат" : "Рекомендуемое"}
+                {/* {event.is_important ? "Влияет на сертификат" : "Рекомендуемое"} */}
 
                 {/* Подсказка */}
                 {showTooltip && (
