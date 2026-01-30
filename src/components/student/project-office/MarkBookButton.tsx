@@ -14,7 +14,7 @@ const MarkBookButton = () => {
       <div className="flex gap-2 items-center h-10">
         <BookMarked color="white" />
         <span className="font-codec-news text-m text-gray-400 lg:text-white">
-          Зачетная книжка
+          Зачетная книжка | Мои итоги
         </span>
       </div>
       <ChevronRight className="w-4 h-4 text-sch-green-light lg:text-amber-50 group-hover:translate-x-1 transition-transform" />

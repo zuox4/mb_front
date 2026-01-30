@@ -25,7 +25,7 @@ const EditPriority = ({
         `/project-office/change-event-imp/${id}`,
         {
           value: value,
-        }
+        },
       );
       return response.data;
     },
@@ -38,7 +38,7 @@ const EditPriority = ({
         return old.map((event: any) =>
           event.id === eventId
             ? { ...event, is_important: variables.value }
-            : event
+            : event,
         );
       });
     },
@@ -55,13 +55,13 @@ const EditPriority = ({
   const options = [
     {
       value: false,
-      label: "#Базовый минимум",
+      label: "#Рекомендуемое",
       className:
         "bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/30",
     },
     {
       value: true,
-      label: "Раскошный максимум",
+      label: "#Базовый минимум",
       className:
         "bg-red-500/20 text-red-300 hover:bg-red-500/30 border-red-500/30",
     },

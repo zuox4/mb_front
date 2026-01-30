@@ -36,7 +36,7 @@ const TeacherProfile = ({
 
   // Мобильная версия (раскрывающийся список)
   const mobileView = (
-    <div className="border-1  bg-sch-blue-dark/40 rounded-2xl lg:hidden">
+    <div className="border-1  bg-sch-blue-dark/40 rounded-2xl lg:hidden font-codec">
       {/* Заголовок - всегда видим */}
       <div
         className="flex items-center gap-3 p-4 cursor-pointer"
@@ -47,7 +47,7 @@ const TeacherProfile = ({
           <AvatarFallback className="bg-gray-700">{shortName}</AvatarFallback>
         </Avatar>
         <div className="flex-1 min-w-0">
-          <div className="text-[12px] uppercase text-sch-green-light font-codec-bold">
+          <div className="text-[14px] uppercase text-sch-green-light font-codec-bold">
             {title}
           </div>
           <div className="text-[14px] truncate">{displayName}</div>

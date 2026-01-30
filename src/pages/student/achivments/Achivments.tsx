@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Trophy,
   Calendar,
@@ -7,6 +7,7 @@ import {
   TrendingUp,
   Filter,
 } from "lucide-react";
+import api from "@/services/api/api";
 
 interface Achievement {
   id: number;
@@ -20,63 +21,18 @@ interface Achievement {
 }
 
 const AchievementsPage = () => {
-  const [achievements] = useState<Achievement[]>([
-    {
-      id: 1,
-      eventName: "Олимпиада по математике",
-      stage: "Муниципальный этап",
-      result: "1 место",
-      teacher: "Иванова М.П.",
-      date: "2024-11-15",
-      points: 150,
-      isProfile: true,
-    },
-    {
-      id: 2,
-      eventName: "Соревнования по баскетболу",
-      stage: "Финальный тур",
-      result: "2 место",
-      teacher: "Петров С.В.",
-      date: "2024-10-22",
-      points: 120,
-      isProfile: false,
-    },
-    {
-      id: 3,
-      eventName: "Конкурс научных проектов",
-      stage: "Школьный этап",
-      result: "Лучший проект",
-      teacher: "Сидорова Е.Л.",
-      date: "2024-09-30",
-      points: 100,
-      isProfile: true,
-    },
-    {
-      id: 4,
-      eventName: "Выставка художественных работ",
-      stage: "Городской конкурс",
-      result: "Диплом 1 степени",
-      teacher: "Кузнецова А.И.",
-      date: "2024-05-18",
-      points: 80,
-      isProfile: false,
-    },
-    {
-      id: 5,
-      eventName: "Волонтерская акция 'Чистый город'",
-      stage: "Общегородской проект",
-      result: "Активный участник",
-      teacher: "Васильев Д.К.",
-      date: "2024-04-12",
-      points: 50,
-      isProfile: false,
-    },
-  ]);
-
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const loadAchivments = async () => {
+    const data = await api.get("/student/achivments");
+    setAchievements(data.data);
+    return data.data;
+  };
   const [filter, setFilter] = useState<"all" | "profile" | "non-profile">(
     "all",
   );
-
+  useEffect(() => {
+    loadAchivments();
+  }, []);
   // Фильтрация достижений
   const filteredAchievements = achievements.filter((ach) => {
     if (filter === "profile") return ach.isProfile;
@@ -104,7 +60,7 @@ const AchievementsPage = () => {
               <Trophy className="w-6 h-6 text-yellow-400" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Достижения</h1>
+              <h1 className="text-lg font-bold text-white">Достижения</h1>
               <p className="text-white/60 text-sm">История ваших успехов</p>
             </div>
           </div>

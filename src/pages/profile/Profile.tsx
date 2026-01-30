@@ -1,26 +1,23 @@
 import { useStudentData } from "@/hooks/student/useStudentData";
-import { User, Mail, School } from "lucide-react";
+import { User, School, PersonStanding } from "lucide-react";
 
 const ProfilePage = () => {
   const { data } = useStudentData();
+
   // Данные пользователя
-  const userData = {
-    email: "ivanov@school.ru",
-    class: data?.class_name,
-    classTeacher: "Петрова Мария Сергеевна",
-    classTeacherEmail: "petrova@school.ru",
-    rank: 5,
-    totalStudents: 245,
-  };
 
   return (
     <div className="min-h-screen w-full">
       <div className="max-w-md mx-auto">
         {/* Заголовок */}
-        <div className="mb-6">
-          <div className="flex items-center gap-3">
-            <User className="w-6 h-6 text-blue-400" />
-            <h1 className="text-lg font-medium text-white">Профиль</h1>
+
+        <div className="flex items-center gap-3 mb-4">
+          <div className="p-2 bg-yellow-500/20 rounded-lg">
+            <PersonStanding className="w-6 h-6 text-yellow-400" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold text-white">Профиль</h1>
+            <p className="text-white/60 text-sm">Ваши данные</p>
           </div>
         </div>
 
@@ -41,18 +38,13 @@ const ProfilePage = () => {
                 {data?.display_name}
               </h2>
               <div className="text-white/60 text-sm">
-                {userData.class} класс
+                {data?.class_name} класс
               </div>
             </div>
           </div>
 
           {/* Контактная информация */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-white">
-              <Mail className="w-4 h-4 text-white/60" />
-              <span>{userData.email}</span>
-            </div>
-
             <div className="flex items-center gap-2 text-white">
               <School className="w-4 h-4 text-white/60" />
               <span>

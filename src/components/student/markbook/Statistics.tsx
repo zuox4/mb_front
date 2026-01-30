@@ -5,7 +5,7 @@ interface StatisticsProps {
 }
 
 function Statistics({ marks }: StatisticsProps) {
-  const totalMarks = marks.length;
+  // const totalMarks = marks.length;
   const passedMarks = marks.filter((mark) => mark.type === "зачет").length;
   const failedMarks = marks.filter((mark) => mark.type === "незачет").length;
 
@@ -23,7 +23,7 @@ function Statistics({ marks }: StatisticsProps) {
   return (
     <div className="grid grid-cols-1  md:grid-cols-4 gap-4 mb-8">
       {/* Всего мероприятий */}
-      <div className="bg-white/10  rounded-xl p-1 items-center md:p-4 border border-gray-200/30 backdrop-blur-sm lg:block pr-2 md:pr-0">
+      {/* <div className="bg-white/10  rounded-xl p-1 items-center md:p-4 border border-gray-200/30 backdrop-blur-sm lg:block pr-2 md:pr-0">
         <div className="text-center md:block grid grid-cols-[1fr_3fr_1fr] items-center">
           <div className="flex justify-center items-center md:mb-2">
             <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
@@ -47,7 +47,7 @@ function Statistics({ marks }: StatisticsProps) {
           </p>
           <p className="font-codec-bold text-2xl text-white">{totalMarks}</p>
         </div>
-      </div>
+      </div> */}
 
       {/* Зачеты */}
       <div className="bg-white/10  rounded-xl p-1 items-center md:p-4 border border-gray-200/30 backdrop-blur-sm lg:block pr-2 md:pr-0">
@@ -130,7 +130,7 @@ function Statistics({ marks }: StatisticsProps) {
               </svg>
             </div>
           </div>
-          <p className="font-codec text-white/80 text-sm mb-1">Успеваемость</p>
+          <p className="font-codec text-white/80 text-sm mb-1">Прогресс</p>
           {/* <p className="font-codec-bold text-2xl text-sch-green-light">
             {averageScore}%
           </p> */}

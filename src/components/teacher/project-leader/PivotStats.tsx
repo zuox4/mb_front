@@ -318,7 +318,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
   //   return modalEvents.filter((event) => event.hasStats).length;
   // }, [modalEvents]);
 
-  // Собираем статистику по мероприятиям из данных students
+  // Собираем общую статистику по мероприятиям из данных students
   const eventStats: EventStat[] = useMemo(() => {
     if (students.length === 0) return [];
 
@@ -435,6 +435,43 @@ const PivotStats: React.FC<PivotStatsProps> = ({
     };
   }, [eventStats, students.length]);
 
+  // Общая статистика
+  const totalStatsImportant = useMemo(() => {
+    const totalStudents = students.length;
+    const important = eventStats.filter((event) => event.is_important === true);
+    console.log(important);
+    const totalEvents = important.length;
+
+    const totalCompleted = important.reduce(
+      (sum, event) => sum + event.completed,
+      0,
+    );
+    const totalPossible = important.reduce(
+      (sum, event) => sum + event.total,
+      0,
+    );
+    const overallCompletionRate =
+      totalPossible > 0 ? (totalCompleted / totalPossible) * 100 : 0;
+    const averageScore =
+      important.length > 0
+        ? important.reduce((sum, event) => sum + event.averageScore, 0) /
+          important.length
+        : 0;
+
+    // Подсчет мероприятий в проекте
+    const eventsInProject = important.filter(
+      (event) => event.isInProfile,
+    ).length;
+
+    return {
+      totalStudents,
+      totalEvents,
+      overallCompletionRate,
+      averageScore: averageScore.toFixed(1),
+      totalCompleted,
+      eventsInProject,
+    };
+  }, [eventStats, students.length]);
   // Получение цвета для прогресса
   const getProgressColor = (rate: number) => {
     if (rate >= 80) return "text-emerald-400";
@@ -550,13 +587,23 @@ const PivotStats: React.FC<PivotStatsProps> = ({
           <div className="bg-white/10 rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="w-5 h-5 text-emerald-400" />
-              <span className="text-sm text-gray-300">Выполнено</span>
+              <span className="text-sm text-gray-300">
+                Выполнено из общего количесва
+              </span>
             </div>
             <div className="text-2xl font-bold text-emerald-400">
               {totalStats.overallCompletionRate.toFixed(1)}%
             </div>
           </div>
-
+          <div className="bg-white/10 rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
+            <div className="flex items-center gap-2 mb-2">
+              <CheckCircle className="w-5 h-5 text-emerald-400" />
+              <span className="text-sm text-gray-300">Выполнено из важных</span>
+            </div>
+            <div className="text-2xl font-bold text-emerald-400">
+              {totalStatsImportant.overallCompletionRate.toFixed(1)}%
+            </div>
+          </div>
           {/* <div className="bg-white/10 rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="w-5 h-5 text-yellow-400" />
@@ -669,39 +716,6 @@ const PivotStats: React.FC<PivotStatsProps> = ({
                                 ></div>
                               </div>
                             </div>
-
-                            <div>
-                              <div className="flex justify-between text-sm text-gray-300 mb-1">
-                                <span>Средний балл</span>
-
-                                <span>
-                                  {event.averageScore.toFixed(1)} из 100
-                                </span>
-                              </div>
-                              <div className="w-full bg-gray-700 rounded-full h-3">
-                                <div
-                                  className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
-                                  style={{ width: `${event.averageScore}%` }}
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-3">
-                            <div className="bg-white/5 rounded-lg p-3">
-                              <div className="text-sm text-gray-300">
-                                Зачтено
-                              </div>
-                              <div className="text-xl font-bold text-emerald-400">
-                                {event.completed}
-                              </div>
-                            </div>
-                            <div className="bg-white/5 rounded-lg p-3">
-                              <div className="text-sm text-gray-300">Всего</div>
-                              <div className="text-xl font-bold text-white">
-                                {event.total}
-                              </div>
-                            </div>
                           </div>
                         </div>
 
@@ -753,7 +767,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
                         </div>
 
                         {/* Рекомендации */}
-                        <div className="space-y-4">
+                        {/* <div className="space-y-4">
                           <h6 className="font-medium text-white flex items-center gap-2">
                             <Lightbulb className="w-4 h-4 text-blue-400" />
                             Рекомендации
@@ -780,7 +794,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({
                               </div>
                             )}
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   )}

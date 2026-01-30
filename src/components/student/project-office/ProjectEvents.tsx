@@ -1,5 +1,5 @@
 import { type Event, useProjectData } from "@/hooks/student/useProjectData";
-import { ChevronDown, ChevronUp, Info, Calendar } from "lucide-react";
+import { ChevronDown, ChevronUp, Info } from "lucide-react";
 import { useState } from "react";
 
 type TabType = "all" | "important" | "regular";
@@ -189,7 +189,7 @@ const ProjectEvents = () => {
 
 // Вынесем карточку события в отдельный компонент для чистоты
 const EventCard = ({ event }: { event: Event }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
+  // const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <div className="group relative bg-sch-blue-dark/40 rounded-xl p-2 hover:bg-sch-blue-dark/60 transition-all duration-300 border border-transparent hover:border-blue-500/30">
@@ -224,8 +224,8 @@ const EventCard = ({ event }: { event: Event }) => {
                     ? "bg-gradient-to-r from-red-900/40 to-rose-900/30 text-red-300 border border-red-700/50 hover:border-red-500"
                     : "bg-gradient-to-r from-blue-900/30 to-cyan-900/20 text-blue-300 border border-blue-700/50 hover:border-blue-500"
                 }`}
-                onMouseEnter={() => setShowTooltip(true)}
-                onMouseLeave={() => setShowTooltip(false)}
+                // onMouseEnter={() => setShowTooltip(true)}
+                // onMouseLeave={() => setShowTooltip(false)}
               >
                 <div
                   className={`w-2 h-2 rounded-full ${event.is_important ? "bg-red-400 animate-pulse" : "bg-blue-400"}`}
@@ -233,7 +233,7 @@ const EventCard = ({ event }: { event: Event }) => {
                 {/* {event.is_important ? "Влияет на сертификат" : "Рекомендуемое"} */}
 
                 {/* Подсказка */}
-                {showTooltip && (
+                {/* {showTooltip && (
                   <div
                     className={`absolute ${event.is_important ? "left-1 -translate-x-1" : "left-0"} bottom-full mb-2 w-64 p-3 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50`}
                   >
@@ -246,7 +246,7 @@ const EventCard = ({ event }: { event: Event }) => {
                       className={`absolute -bottom-1 ${event.is_important ? "left-1/2 -translate-x-1/2" : "left-4"} w-2 h-2 bg-gray-900 border-r border-b border-gray-700 rotate-45`}
                     ></div>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -289,7 +289,7 @@ const EmptyState = ({ tab }: { tab: TabType }) => {
       <h4 className="text-xl font-semibold text-white mb-2">{message.title}</h4>
       <p className="text-gray-400 mb-6">{message.description}</p>
 
-      {tab !== "all" && (
+      {/* {tab !== "all" && (
         <button
           onClick={() =>
             window.dispatchEvent(
@@ -301,7 +301,7 @@ const EmptyState = ({ tab }: { tab: TabType }) => {
           <Calendar className="w-4 h-4" />
           Посмотреть все мероприятия
         </button>
-      )}
+      )} */}
     </div>
   );
 };

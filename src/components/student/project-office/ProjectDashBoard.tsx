@@ -3,6 +3,7 @@ import { STATIC_BASE_URL } from "@/services/api/api";
 import MarkBookButton from "./MarkBookButton";
 import ProjectEvents from "./ProjectEvents";
 import TeacherProfile from "./TeacherProfile";
+import { Smile } from "lucide-react";
 
 interface ProjectDashBoardProps {
   title?: string;
@@ -42,11 +43,19 @@ const ProjectDashBoard = ({
         <div className="lg:flex-1 lg:flex lg:flex-col">
           <div className="flex flex-col gap-4 lg:gap-6">
             {/* Белый заголовок */}
-            <h1 className="uppercase text-[18px] md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight">
-              Добро пожаловать,{" "}
-              <span className="text-sch-green-light">{data.display_name}</span>
-              <br className="" /> в {title}
-            </h1>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-white/20 rounded-lg">
+                <Smile className="w-6 h-6 text-sch-green-light" />
+              </div>
+              <div>
+                <h1 className="text-lg font-bold text-white">
+                  Добро пожаловать в {title}
+                </h1>
+                <p className="text-white/60 text-sm">
+                  Школа 1298 "профиль "Куркино"
+                </p>
+              </div>
+            </div>
             {/* Учитель - 50% */}
             <div className="md:max-w-[50%]">
               {data.project_leader && (
@@ -54,9 +63,7 @@ const ProjectDashBoard = ({
                   displayName={data.project_leader.display_name}
                   image={data.project_leader.image || ""}
                   variant="project_leader"
-                  about={
-                    data.project_leader.about || "Пока нет никакой информации"
-                  }
+                  about={data.project_leader.about || "Пока нет информации"}
                 />
               )}
             </div>
