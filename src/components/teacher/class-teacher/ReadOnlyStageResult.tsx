@@ -15,7 +15,7 @@ const ReadOnlyStageResult: React.FC<ReadOnlyStageResultProps> = ({ stage }) => {
   }
 
   const currentResult = stage.possible_results?.find(
-    (result) => result.title === stage.result_title
+    (result) => result.title === stage.result_title,
   );
 
   const getStatusColor = () => {

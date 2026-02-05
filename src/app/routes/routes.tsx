@@ -28,6 +28,8 @@ import TanStackQueryClientProvider from "../providers/query-client-provider";
 import EventsPage from "@/pages/student/events/eventsPage";
 import AchievementsPage from "@/pages/student/achivments/Achivments";
 import ProfilePage from "@/pages/profile/Profile";
+import ClassTeacherDashboard from "@/components/teacher/class-teacher/ClassTeacherDashboard";
+import MyClassPage from "@/pages/teacher/class-leader/my-class";
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +57,22 @@ export const router = createBrowserRouter([
               {
                 path: "class-leader",
                 element: <ProtectedRoute requiredRole="class_leader" />, // Только с groups_leader
-                children: [{ path: "", element: <ClassLeaderPage /> }],
+                children: [
+                  {
+                    path: "",
+                    element: <ClassLeaderPage />,
+                    children: [
+                      {
+                        path: "event-dashboard",
+                        element: <ClassTeacherDashboard />,
+                      },
+                      {
+                        path: "my-class",
+                        element: <MyClassPage />,
+                      },
+                    ],
+                  },
+                ],
               },
               {
                 path: "event-leader",

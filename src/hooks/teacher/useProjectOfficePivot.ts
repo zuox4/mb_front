@@ -19,6 +19,7 @@ export interface PivotStudent {
         name: string;
         status: string;
         current_score: number;
+        min_required_score: number
       }>;
     };
   };

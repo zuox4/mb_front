@@ -32,7 +32,7 @@ const EditPriority = ({
     onMutate: (variables) => {
       // Оптимистичное обновление кэша
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      queryClient.setQueryData(["project-office-events"], (old: any) => {
+      queryClient.setQueryData(["project-office-pivot"], (old: any) => {
         if (!old) return old;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return old.map((event: any) =>
@@ -43,12 +43,12 @@ const EditPriority = ({
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["project-office-events"] });
+      queryClient.invalidateQueries({ queryKey: ["project-office-pivot"] });
     },
     onError: (error) => {
       console.error("Failed to update priority:", error);
       // Откатываем кэш при ошибке
-      queryClient.invalidateQueries({ queryKey: ["project-office-events"] });
+      queryClient.invalidateQueries({ queryKey: ["project-office-pivot"] });
     },
   });
 

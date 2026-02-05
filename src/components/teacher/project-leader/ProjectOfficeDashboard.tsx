@@ -1,23 +1,22 @@
 // components/project-office/ProjectOfficeDashboard.tsx
-import { useProjectOfficeGroups } from "@/hooks/teacher/useProjectOfficeGroups";
 import {
   PivotStudent,
   useProjectOfficePivot,
 } from "@/hooks/teacher/useProjectOfficePivot";
 import React, { useState } from "react";
 import ExportButton from "./ExportButton";
-import GroupFilter from "./GroupFilter";
+
 import PivotStats from "./PivotStats";
 import PivotTableView from "./PivotTableView";
 import StudentDetailsModal from "./StudentDetailsModal";
 
 const ProjectOfficeDashboard: React.FC = () => {
-  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  const [selectedGroups] = useState<string[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<PivotStudent | null>(
-    null
+    null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data: groups = [] } = useProjectOfficeGroups();
+  // const { data: groups = [] } = useProjectOfficeGroups();
   const {
     data: pivotData,
     isLoading,
@@ -58,9 +57,6 @@ const ProjectOfficeDashboard: React.FC = () => {
           <h1 className="text-2xl font-bold">
             Сводная аналитика - Проектный офис
           </h1>
-          <p className="text-gray-400 mt-1">
-            Результаты учеников по всем мероприятиям проектного офиса
-          </p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="bg-blue-500/20 hidden md:block text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">
@@ -68,13 +64,12 @@ const ProjectOfficeDashboard: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Фильтр классов */}
+      {/* 
       <GroupFilter
         groups={groups}
         selectedGroups={selectedGroups}
         onGroupsChange={setSelectedGroups}
-      />
+      /> */}
 
       {/* Статистика */}
       {pivotData && pivotData.length > 0 && <PivotStats students={pivotData} />}

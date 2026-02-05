@@ -1,3 +1,4 @@
+// components/class-teacher/ReadOnlyStudentRow.tsx
 import { StageInfo, StudentJournal } from "@/hooks/teacher/journal/types";
 import React from "react";
 import ReadOnlyStageResult from "./ReadOnlyStageResult";
@@ -26,34 +27,40 @@ const ReadOnlyStudentRow: React.FC<ReadOnlyStudentRowProps> = ({
   const overallStatus = getOverallStatus();
 
   return (
-    <tr className={studentIndex % 2 === 0 ? "bg-gray-800" : "bg-gray-750"}>
-      <td className="px-4 py-2 text-sm text-white border-r border-gray-700 sticky left-0 bg-inherit flex items-center gap-3">
-        <div
-          className={`text-xs px-2 py-1 rounded mt-1 inline-block ${
-            overallStatus === "зачет"
-              ? "bg-green-500 text-white"
-              : overallStatus === "в процессе"
-                ? "bg-yellow-500 text-black"
-                : "bg-gray-500 text-white"
-          }`}
-        >
-          {overallStatus}
+    <div
+      className={`flex border-b border-white/10 ${studentIndex % 2 === 0 ? "bg-white/2" : "bg-white/3"}`}
+    >
+      {/* Первая ячейка (Имя ученика) */}
+      <div className="px-3 py-2 text-sm text-white sticky left-0 z-10 bg-inherit whitespace-nowrap min-w-[200px] border-r border-white/10">
+        <div className="flex items-center gap-2">
+          <div
+            className={`text-xs px-2 py-1 rounded flex-shrink-0 ${
+              overallStatus === "зачет"
+                ? "bg-emerald-500/30 text-emerald-300 border border-emerald-500/50"
+                : overallStatus === "в процессе"
+                  ? "bg-yellow-500/30 text-yellow-300 border border-yellow-500/50"
+                  : "bg-gray-500/30 text-gray-300 border border-gray-500/50"
+            }`}
+          >
+            {overallStatus}
+          </div>
+          <div className="font-medium truncate">{student.student_name}</div>
         </div>
-        <div className="font-medium">{student.student_name}</div>
-      </td>
+      </div>
 
+      {/* Ячейки с этапами */}
       {allStages.map((stage) => {
         const studentStage = student.stages?.find((s) => s.name === stage.name);
         return (
-          <td
+          <div
             key={stage.name}
-            className="px-2 text-center border-r border-gray-700"
+            className="px-2 py-2 text-center border-r border-white/10 min-w-[140px] flex items-center justify-center"
           >
             <ReadOnlyStageResult stage={studentStage} />
-          </td>
+          </div>
         );
       })}
-    </tr>
+    </div>
   );
 };
 
