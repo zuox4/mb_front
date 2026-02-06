@@ -8,6 +8,7 @@ interface EditPriorityProps {
   eventId: number;
   disabled?: boolean;
   showIcon?: boolean;
+  p_office_id?: string;
 }
 
 const EditPriority = ({
@@ -15,16 +16,26 @@ const EditPriority = ({
   eventId,
   disabled = false,
   showIcon = true,
+  p_office_id,
 }: EditPriorityProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const updatePriorityMutation = useMutation({
-    mutationFn: async ({ id, value }: { id: number; value: boolean }) => {
+    mutationFn: async ({
+      id,
+      value,
+      p_office_id,
+    }: {
+      id: number;
+      value: boolean;
+      p_office_id: string;
+    }) => {
       const response = await api.post(
         `/project-office/change-event-imp/${id}`,
         {
           value: value,
+          p_office_id: p_office_id,
         },
       );
       return response.data;
@@ -76,6 +87,7 @@ const EditPriority = ({
     updatePriorityMutation.mutate({
       id: eventId,
       value: newValue,
+      p_office_id: p_office_id || "",
     });
   };
 

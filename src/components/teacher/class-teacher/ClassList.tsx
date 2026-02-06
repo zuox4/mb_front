@@ -151,7 +151,7 @@ const ClassList = ({ classId }: { classId: number }) => {
           return (
             <div
               key={student.id}
-              className="border border-gray-200 rounded-lg overflow-hidden font-codec-news"
+              className="border border-gray-200 rounded-lg overflow-hidden font-codec-news "
             >
               {/* Основная информация */}
               <div className="p-4 bg-white hover:bg-gray-50 transition-colors">

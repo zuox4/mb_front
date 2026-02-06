@@ -30,6 +30,7 @@ import AchievementsPage from "@/pages/student/achivments/Achivments";
 import ProfilePage from "@/pages/profile/Profile";
 import ClassTeacherDashboard from "@/components/teacher/class-teacher/ClassTeacherDashboard";
 import MyClassPage from "@/pages/teacher/class-leader/my-class";
+import ProjectOfficeAdminPage from "@/components/admin/ProjectOffices/ProjectOfficeAdminPage";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
                     path: "",
                     element: <ClassLeaderPage />,
                     children: [
+                      {
+                        path: "",
+                        element: <Navigate to={"my-class"} />,
+                      },
                       {
                         path: "event-dashboard",
                         element: <ClassTeacherDashboard />,
@@ -122,6 +127,10 @@ export const router = createBrowserRouter([
                       {
                         path: "project-offices",
                         element: <ProjectOfficesPage />,
+                      },
+                      {
+                        path: "project-offices/:id",
+                        element: <ProjectOfficeAdminPage />,
                       },
                       {
                         path: "groups",

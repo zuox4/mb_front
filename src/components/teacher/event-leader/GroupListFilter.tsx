@@ -48,7 +48,7 @@ const GroupListFilter: React.FC<GroupListFilterProps> = ({
           flex items-center justify-between
           ${
             selectedGroupId
-              ? "bg-gradient-to-r from-emerald-500/90 to-emerald-600/90 text-white"
+              ? "bg-gradient-to-r from-sch-green-light/90 to-emerald-600/90 text-white"
               : "bg-white/30 text-gray-700 hover:bg-white/40"
           }
         `}

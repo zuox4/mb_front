@@ -29,10 +29,10 @@ const ReadOnlyStageResult: React.FC<ReadOnlyStageResultProps> = ({ stage }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2  p-2">
+    <div className="flex flex-col items-center justify-center space-y-2 ">
       {/* Статус */}
       <div
-        className={`text-xs px-3 py-1 rounded border w-full text-center ${getStatusColor()}`}
+        className={`text-xs px-2 py-1 rounded border w-full text-center ${getStatusColor()}`}
       >
         {currentResult ? currentResult.title : "Не выполнено"}
       </div>

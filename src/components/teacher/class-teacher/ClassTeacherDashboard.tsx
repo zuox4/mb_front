@@ -141,7 +141,9 @@ const ClassTeacherDashboard = () => {
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
       <div className="text-white">
-        <h1 className="text-2xl font-bold mb-2">Журнал мероприятий</h1>
+        <h1 className="text-2xl font-bold mb-2 font-codec-news">
+          Журнал мероприятий
+        </h1>
         <p className="text-white/60 mb-6">Классный руководитель</p>
 
         {/* Информация о выбранных фильтрах */}
@@ -198,14 +200,14 @@ const ClassTeacherDashboard = () => {
             <div className="overflow-x-auto border border-white/20 rounded-lg">
               <div className="min-w-full">
                 <div className="bg-white/5 border-b border-white/10">
-                  <div className="flex">
-                    <div className="px-4 py-3 text-left text-sm font-medium text-white min-w-[200px] sticky left-0 bg-white/5 z-10 border-r border-white/10">
+                  <div className="flex w-full justify-between">
+                    <div className="px-4 py-3 text-left text-sm w-[300px] font-medium text-white min-w-[200px] sticky left-0 bg-white/5 z-10 border-r border-white/10">
                       Ученик
                     </div>
                     {allStages.map((stage) => (
                       <div
                         key={stage.name}
-                        className="px-4 py-3 text-center text-sm font-medium text-white min-w-[180px] border-r border-white/10"
+                        className="px-1 max-w-[100px]  py-3 text-center text-sm font-medium text-white min-w-[180px] border-r border-white/10"
                       >
                         <div className="truncate">{stage.name}</div>
                         <div className="text-xs text-white/60 font-normal mt-1">

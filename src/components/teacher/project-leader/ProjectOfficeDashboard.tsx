@@ -10,7 +10,9 @@ import PivotStats from "./PivotStats";
 import PivotTableView from "./PivotTableView";
 import StudentDetailsModal from "./StudentDetailsModal";
 
-const ProjectOfficeDashboard: React.FC = () => {
+const ProjectOfficeDashboard: React.FC<{ p_office_id?: string }> = ({
+  p_office_id,
+}) => {
   const [selectedGroups] = useState<string[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<PivotStudent | null>(
     null,
@@ -21,7 +23,7 @@ const ProjectOfficeDashboard: React.FC = () => {
     data: pivotData,
     isLoading,
     error,
-  } = useProjectOfficePivot(selectedGroups);
+  } = useProjectOfficePivot(selectedGroups, p_office_id);
 
   const handleStudentClick = (student: PivotStudent) => {
     setSelectedStudent(student);
@@ -58,11 +60,7 @@ const ProjectOfficeDashboard: React.FC = () => {
             Сводная аналитика - Проектный офис
           </h1>
         </div>
-        <div className="flex items-center space-x-4">
-          <div className="bg-blue-500/20 hidden md:block text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">
-            Руководитель проектного офиса
-          </div>
-        </div>
+        <div className="flex items-center space-x-4"></div>
       </div>
       {/* 
       <GroupFilter

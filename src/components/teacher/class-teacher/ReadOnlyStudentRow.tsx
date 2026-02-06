@@ -28,10 +28,10 @@ const ReadOnlyStudentRow: React.FC<ReadOnlyStudentRowProps> = ({
 
   return (
     <div
-      className={`flex border-b border-white/10 ${studentIndex % 2 === 0 ? "bg-white/2" : "bg-white/3"}`}
+      className={`flex justify-between border-b border-white/10 ${studentIndex % 2 === 0 ? "bg-white/2" : "bg-white/3"}`}
     >
       {/* Первая ячейка (Имя ученика) */}
-      <div className="px-3 py-2 text-sm text-white sticky left-0 z-10 bg-inherit whitespace-nowrap min-w-[200px] border-r border-white/10">
+      <div className="px-3 py-2 text-sm w-[300px] text-white sticky left-0 z-10 bg-inherit whitespace-nowrap min-w-[200px] border-r border-white/10">
         <div className="flex items-center gap-2">
           <div
             className={`text-xs px-2 py-1 rounded flex-shrink-0 ${
@@ -54,7 +54,7 @@ const ReadOnlyStudentRow: React.FC<ReadOnlyStudentRowProps> = ({
         return (
           <div
             key={stage.name}
-            className="px-2 py-2 text-center border-r border-white/10 min-w-[140px] flex items-center justify-center"
+            className="max-w-[150px] truncate px-2 py-2 text-center border-r border-white/10 min-w-[140px] flex items-center justify-center"
           >
             <ReadOnlyStageResult stage={studentStage} />
           </div>

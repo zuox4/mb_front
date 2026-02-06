@@ -3,13 +3,14 @@ import { STATIC_BASE_URL } from "@/services/api/api";
 import { BookMarked, ChevronDown, ChevronUp, Loader } from "lucide-react";
 import { useState } from "react";
 import LeaderView from "./LeaderView";
+import { useNavigate } from "react-router-dom";
 
 const ProjectOfficesPage = () => {
   const { data, isLoading } = useOffices();
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<number>>(
-    new Set()
+    new Set(),
   );
-
+  const navigate = useNavigate();
   const toggleDescription = (officeId: number) => {
     const newExpanded = new Set(expandedDescriptions);
     if (newExpanded.has(officeId)) {
@@ -60,6 +61,7 @@ const ProjectOfficesPage = () => {
           return (
             <div
               key={office.id}
+              onClick={() => navigate(`${office.id}`)}
               className="flex flex-col gap-4 bg-gradient-to-r from-sch-green-light/40 to-sch-green-light/20 hover:from-sch-green-light/50 hover:to-sch-green-light/30 hover:shadow-lg transition-all duration-300 rounded-xl p-5 border border-sch-green-light/30"
             >
               {/* Логотип */}

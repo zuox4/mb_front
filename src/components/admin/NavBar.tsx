@@ -39,6 +39,7 @@ const NavBar = () => {
       className={`
       relative h-screen top-0 flex flex-col
       transition-all duration-300 ease-out
+      
       ${isOpen ? "min-w-80 max-w-80" : "min-w-20 max-w-20"}
     `}
     >
@@ -46,15 +47,16 @@ const NavBar = () => {
       <div
         className={`
         flex-1 flex flex-col
-        bg-white/5 backdrop-blur-md
+         backdrop-blur-md
         border-r border-white/10
         transition-all duration-300
+        bg-yellow-50/10 rounded-2xl
       `}
       >
         {/* Заголовок */}
-        <div className="flex items-center p-6 h-20 shrink-0">
+        <div className="flex items-center p-2 h-20 shrink-0">
           {isOpen ? (
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full ">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                   <Menu size={22} className="text-white" />
@@ -79,7 +81,7 @@ const NavBar = () => {
         </div>
 
         {/* Навигация */}
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-2 space-y-1 overflow-y-auto ">
           {navigation.map((item) => {
             const isActive =
               location.pathname.includes(item.path) && item.path !== "/";

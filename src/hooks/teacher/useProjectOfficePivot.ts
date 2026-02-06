@@ -19,15 +19,16 @@ export interface PivotStudent {
         name: string;
         status: string;
         current_score: number;
-        min_required_score: number
+        min_required_score: number,
+        result_title: string, 
       }>;
     };
   };
 }
 
-export const useProjectOfficePivot = (selectedGroups: string[] = []) => {
+export const useProjectOfficePivot = (selectedGroups: string[] = [], p_office_id: string='') => {
   return useQuery<PivotStudent[], Error>({
-    queryKey: ["project-office-pivot", selectedGroups],
+    queryKey: ["project-office-pivot", selectedGroups, p_office_id],
     queryFn: async (): Promise<PivotStudent[]> => {
       const params = new URLSearchParams();
 
@@ -37,11 +38,16 @@ export const useProjectOfficePivot = (selectedGroups: string[] = []) => {
           params.append("groups", group);
         });
       }
-
+      if (p_office_id) {
+          params.append('p_office_id', p_office_id)
+        }
+      
+      
       const response = await privateApi.get(
         "/project-office/pivot-data-optimized",
         {
           params,
+          
         }
       );
       return response.data;
