@@ -52,7 +52,7 @@ const ProjectDashBoard = ({
                   Добро пожаловать в {title}
                 </h1>
                 <p className="text-white/60 text-sm">
-                  Школа 1298 "профиль "Куркино"
+                  Школа 1298 "Профиль "Куркино"
                 </p>
               </div>
             </div>

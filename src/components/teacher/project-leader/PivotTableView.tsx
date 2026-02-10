@@ -8,6 +8,8 @@ import {
   X,
   Star,
   StarOff,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface PivotTableViewProps {
@@ -52,6 +54,7 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [showImportantOnly, setShowImportantOnly] = useState<boolean>(true);
   const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   if (!students || students.length === 0) {
     return (
@@ -221,8 +224,38 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
     if (showSearch) setSearchTerm("");
   };
 
+  // Прокрутка влево/вправо
+  const handleScroll = (direction: "left" | "right") => {
+    const table = document.querySelector(".scrollable-table");
+    if (table) {
+      const scrollAmount = 200;
+      const newPosition =
+        direction === "left"
+          ? scrollPosition - scrollAmount
+          : scrollPosition + scrollAmount;
+
+      table.scrollTo({ left: newPosition, behavior: "smooth" });
+      setScrollPosition(newPosition);
+    }
+  };
+
+  // Функция для компактного отображения названия мероприятия
+  const getCompactEventName = (eventName: string): string => {
+    if (eventName.length <= 15) return eventName;
+
+    // Пробуем сократить
+    const words = eventName.split(" ");
+    if (words.length > 2) {
+      // Берем первые две буквы каждого слова
+      return words.map((w) => w.slice(0, 2)).join("");
+    }
+
+    // Или просто обрезаем
+    return eventName.slice(0, 12) + "...";
+  };
+
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 w-full">
       {/* Компактная панель управления */}
       <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -250,12 +283,12 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
               {showImportantOnly ? (
                 <>
                   <Star className="w-4 h-4" />
-                  Важные
+                  <span className="hidden sm:inline">Важные</span>
                 </>
               ) : (
                 <>
                   <StarOff className="w-4 h-4" />
-                  Все
+                  <span className="hidden sm:inline">Все</span>
                 </>
               )}
             </button>
@@ -266,10 +299,10 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
                 <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Поиск по фамилии..."
+                  placeholder="Поиск..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-8 pr-7 py-1.5 bg-white/10 border border-white/20 rounded-lg text-white text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 w-48"
+                  className="pl-8 pr-7 py-1.5 bg-white/10 border border-white/20 rounded-lg text-white text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 w-32 sm:w-48"
                 />
                 {searchTerm && (
                   <button
@@ -290,7 +323,13 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
               {showSearch ? (
                 <X className="w-4 h-4" />
               ) : (
-                <Search className="w-4 h-4" />
+                <>
+                  <Search className="w-4 h-4 sm:hidden" />
+                  <span className="hidden sm:inline-flex items-center gap-1">
+                    <Search className="w-4 h-4" />
+                    Поиск
+                  </span>
+                </>
               )}
             </button>
           </div>
@@ -302,7 +341,7 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
             { field: "name" as const, label: "Имя", icon: User },
             {
               field: "totalScore" as const,
-              label: showImportantOnly ? "Балл важных" : "Общий балл",
+              label: showImportantOnly ? "Балл важных" : "Балл",
               icon: Award,
             },
             {
@@ -325,7 +364,7 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
-              <span>{label}</span>
+              <span className="hidden xs:inline">{label}</span>
               {getSortIcon(field)}
             </button>
           ))}
@@ -340,237 +379,268 @@ const PivotTableView: React.FC<PivotTableViewProps> = ({
         )}
       </div>
 
-      {/* Компактная таблица */}
-      <div className="overflow-x-auto rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="bg-white/10">
-              <th className="px-3 py-2 text-center text-white font-medium border-r border-white/10 w-12">
-                №
-              </th>
-              <th className="px-3 py-2 text-left text-white font-medium border-r border-white/10 min-w-[90px]  sticky left-0 bg-sch-blue-dark/10">
-                Ученик
-              </th>
-              <th className="px-3 py-2 text-left text-white font-medium border-r border-white/10 min-w-[70px]">
-                Класс
-              </th>
-              <th className="px-3 py-2 text-center text-white font-medium border-r border-white/10 min-w-[80px]">
-                {showImportantOnly ? "Балл важных" : "Балл"}
-              </th>
-              <th className="px-3 py-2 text-center text-white font-medium border-r border-white/10 min-w-[80px]">
-                {showImportantOnly ? "Зачтено важных" : "Зачтено"}
-              </th>
-              {displayedEvents.map((eventId) => {
-                const event = students[0]?.events[eventId] as StudentEvent;
-                return (
-                  <th
-                    key={eventId}
-                    className="p-0 border-r border-white/10 min-w-[50px] align-bottom"
-                    title={event?.event_name}
-                  >
-                    <div className="h-[200px] flex flex-col items-center justify-center gap-1 relative">
-                      {/* Текст вертикально */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <div
-                          className="transform -rotate-90 whitespace-nowrap text-xs font-medium text-white
-                     max-w-[150px] truncate"
-                        >
-                          {event?.event_name}
-                        </div>
-                      </div>
+      {/* Контейнер для таблицы с контролем скролла */}
+      <div className="relative">
+        {/* Кнопки навигации для скролла */}
+        {displayedEvents.length > 5 && (
+          <>
+            <button
+              onClick={() => handleScroll("left")}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 bg-gray-800/80 hover:bg-gray-700/80 backdrop-blur-sm border border-white/20 rounded-full p-2 -ml-4"
+              aria-label="Прокрутить влево"
+            >
+              <ChevronLeft className="w-5 h-5 text-white" />
+            </button>
+            <button
+              onClick={() => handleScroll("right")}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 bg-gray-800/80 hover:bg-gray-700/80 backdrop-blur-sm border border-white/20 rounded-full p-2 -mr-4"
+              aria-label="Прокрутить вправо"
+            >
+              <ChevronRight className="w-5 h-5 text-white" />
+            </button>
+          </>
+        )}
 
-                      {/* Звездочка внизу */}
-                      {event?.is_important && (
-                        <div className="absolute bottom-2">
-                          <Star className="w-3 h-3 text-amber-400" />
-                        </div>
-                      )}
-                    </div>
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAndSortedStudents.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={5 + displayedEvents.length}
-                  className="px-4 py-6 text-center"
-                >
-                  <div className="text-gray-400">
-                    {searchTerm ? "Ученики не найдены" : "Нет данных"}
-                  </div>
-                  {searchTerm && (
-                    <button
-                      onClick={clearSearch}
-                      className="mt-2 text-xs text-emerald-400 hover:text-emerald-300"
-                    >
-                      Очистить поиск
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ) : (
-              filteredAndSortedStudents.map((student, index) => {
-                const displayScore = showImportantOnly
-                  ? student.metrics.importantScore
-                  : student.metrics.totalScore;
-                const displayCompleted = showImportantOnly
-                  ? student.metrics.importantCompletedEvents
-                  : student.metrics.completedEvents;
-
-                return (
-                  <tr
-                    key={student.id}
-                    className="hover:bg-white/10 cursor-pointer transition-colors"
-                    onClick={() => onStudentClick(student)}
-                  >
-                    <td className="px-3 py-2 text-center border-r border-white/10 text-gray-400 font-medium">
-                      {index + 1}
-                    </td>
-                    <td className="px-3 py-2 border-r border-white/10 text-white sticky left-0 bg-sch-blue-dark/10">
-                      <div className="flex flex-col">
-                        <div className="font-medium truncate">
-                          {student.student_name}
-                        </div>
-                        {student.class_teacher && (
-                          <div className="text-xs text-gray-300 truncate">
-                            {student.class_teacher}
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-3 py-2 border-r border-white/10 text-blue-300">
-                      {student.group_name}
-                    </td>
-                    <td className="px-3 py-2 border-r border-white/10 text-center">
-                      <div className="flex flex-col items-center">
-                        <div
-                          className={`text-base font-bold ${
-                            displayScore >= 80
-                              ? "text-emerald-400"
-                              : displayScore >= 60
-                                ? "text-green-400"
-                                : displayScore >= 40
-                                  ? "text-yellow-400"
-                                  : "text-red-400"
-                          }`}
-                        >
-                          {displayScore}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-3 py-2 border-r border-white/10 text-center">
-                      <div className="flex flex-col items-center">
-                        <div className="text-sm font-semibold text-white">
-                          {displayCompleted}
-                          <span className="text-xs text-gray-400 ml-1">
-                            /{displayedEvents.length}
-                          </span>
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          {displayedEvents.length > 0
-                            ? `${Math.round((displayCompleted / displayedEvents.length) * 100)}%`
-                            : "0%"}
-                        </div>
-                      </div>
-                    </td>
-
-                    {/* Результаты по мероприятиям - компактный вид */}
+        {/* Таблица с фиксированными колонками */}
+        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div
+            className="overflow-x-auto scrollable-table"
+            style={{ maxHeight: "70vh" }}
+          >
+            <div className="inline-block min-w-full align-middle">
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr className="bg-white/10">
+                    <th className="px-3 py-2 text-center text-white font-medium border-r border-white/10 w-12 sticky left-0 bg-sch-blue-dark/10 z-10">
+                      №
+                    </th>
+                    <th className="px-3 py-2 text-left text-white font-medium border-r border-white/10 min-w-[90px] sticky left-12 bg-sch-blue-dark/10 z-10">
+                      Ученик
+                    </th>
+                    <th className="px-3 py-2 text-left text-white font-medium border-r border-white/10 min-w-[70px]">
+                      Класс
+                    </th>
+                    <th className="px-3 py-2 text-center text-white font-medium border-r border-white/10 min-w-[80px]">
+                      {showImportantOnly ? "Балл важных" : "Балл"}
+                    </th>
+                    <th className="px-3 py-2 text-center text-white font-medium border-r border-white/10 min-w-[80px]">
+                      {showImportantOnly ? "Зачтено важных" : "Зачтено"}
+                    </th>
                     {displayedEvents.map((eventId) => {
-                      const event = student.events[eventId] as
-                        | StudentEvent
-                        | undefined;
-
-                      if (!event) {
-                        return (
-                          <td
-                            key={eventId}
-                            className="px-2 py-2 text-center border-r border-white/10"
-                          >
-                            <div className="text-gray-400 text-xs">—</div>
-                          </td>
-                        );
-                      }
-
-                      const statusInfo = getEventStatus(event);
-
+                      const event = students[0]?.events[
+                        eventId
+                      ] as StudentEvent;
                       return (
-                        <td
+                        <th
                           key={eventId}
-                          className="px-2 py-2 text-center border-r border-white/10 group relative"
+                          className="p-0 border-r border-white/10 min-w-[60px] max-w-[80px] align-bottom relative group"
+                          title={event?.event_name}
                         >
-                          <div className="flex flex-col items-center gap-0.5">
-                            {/* Иконка важности */}
-                            {/* {event.is_important && (
-                              <div className="absolute -top-1 -right-1">
-                                <Star className="w-2.5 h-2.5 text-amber-400" />
-                              </div>
-                            )} */}
-
-                            {/* Статус */}
-                            <div
-                              className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${statusInfo.color}`}
-                            >
-                              {statusInfo.status.charAt(0)}
+                          <div className="h-[120px] flex flex-col items-center justify-center gap-1 relative px-2">
+                            {/* Укороченное название */}
+                            <div className="transform -rotate-90 whitespace-nowrap text-xs font-medium text-white truncate absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                              {getCompactEventName(event?.event_name || "")}
                             </div>
 
-                            {/* Прогресс */}
-                            <div className="text-xs text-gray-300">
-                              {event.completed_stages_count}/
-                              {event.min_stages_required}
-                            </div>
-
-                            {/* Баллы */}
-                            <div className="text-xs font-bold text-emerald-400">
-                              {event.total_score || 0}б
-                            </div>
-                          </div>
-
-                          {/* Тулкит при наведении */}
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 w-48 bg-gray-800/95 border border-white/20 rounded-lg p-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 shadow-lg backdrop-blur-sm">
-                            <div className="text-xs transform font-semibold text-white mb-1.5 pb-1 border-b border-white/10">
-                              {event.event_name}
-                            </div>
-                            <div className="space-y-1">
-                              {event.stages
-                                .slice(0, 3)
-                                .map((stage, stageIndex) => (
-                                  <div
-                                    key={stageIndex}
-                                    className="flex justify-between items-center text-xs"
-                                  >
-                                    <span className="text-gray-200 truncate mr-2">
-                                      {stage.name}
-                                    </span>
-                                    <span
-                                      className={`font-medium px-1.5 py-0.5 rounded ${
-                                        stage.status === "зачет"
-                                          ? "bg-emerald-500/30 text-emerald-300"
-                                          : "bg-red-500/30 text-red-300"
-                                      }`}
-                                    >
-                                      {stage.current_score}б
-                                    </span>
-                                  </div>
-                                ))}
-                              {event.stages.length > 3 && (
-                                <div className="text-xs text-gray-400 text-center pt-1 border-t border-white/10">
-                                  +{event.stages.length - 3} этапов
+                            {/* Полное название в тултипе */}
+                            <div className="absolute bottom-0 left-0 right-0 h-8 flex items-center justify-center">
+                              {event?.is_important && (
+                                <div className="absolute -top-1 right-1">
+                                  <Star className="w-3 h-3 text-amber-400" />
                                 </div>
                               )}
                             </div>
+
+                            {/* Тулкит с полным названием */}
+                            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900/95 border border-white/20 rounded px-2 py-1 text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-20">
+                              {event?.event_name}
+                            </div>
                           </div>
-                        </td>
+                        </th>
                       );
                     })}
                   </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+                </thead>
+                <tbody>
+                  {filteredAndSortedStudents.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={5 + displayedEvents.length}
+                        className="px-4 py-6 text-center"
+                      >
+                        <div className="text-gray-400">
+                          {searchTerm ? "Ученики не найдены" : "Нет данных"}
+                        </div>
+                        {searchTerm && (
+                          <button
+                            onClick={clearSearch}
+                            className="mt-2 text-xs text-emerald-400 hover:text-emerald-300"
+                          >
+                            Очистить поиск
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredAndSortedStudents.map((student, index) => {
+                      const displayScore = showImportantOnly
+                        ? student.metrics.importantScore
+                        : student.metrics.totalScore;
+                      const displayCompleted = showImportantOnly
+                        ? student.metrics.importantCompletedEvents
+                        : student.metrics.completedEvents;
+
+                      return (
+                        <tr
+                          key={student.id}
+                          className="hover:bg-white/10 cursor-pointer transition-colors"
+                          onClick={() => onStudentClick(student)}
+                        >
+                          <td className="px-3 py-2 text-center border-r border-white/10 text-gray-400 font-medium sticky left-0 bg-sch-blue-dark/10 z-10">
+                            {index + 1}
+                          </td>
+                          <td className="px-3 py-2 border-r border-white/10 text-white sticky left-12 bg-sch-blue-dark/10 z-10">
+                            <div className="flex flex-col">
+                              <div className="font-medium truncate">
+                                {student.student_name}
+                              </div>
+                              {student.class_teacher && (
+                                <div className="text-xs text-gray-300 truncate">
+                                  {student.class_teacher}
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-3 py-2 border-r border-white/10 text-blue-300">
+                            {student.group_name}
+                          </td>
+                          <td className="px-3 py-2 border-r border-white/10 text-center">
+                            <div className="flex flex-col items-center">
+                              <div
+                                className={`text-base font-bold ${
+                                  displayScore >= 80
+                                    ? "text-emerald-400"
+                                    : displayScore >= 60
+                                      ? "text-green-400"
+                                      : displayScore >= 40
+                                        ? "text-yellow-400"
+                                        : "text-red-400"
+                                }`}
+                              >
+                                {displayScore}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-3 py-2 border-r border-white/10 text-center">
+                            <div className="flex flex-col items-center">
+                              <div className="text-sm font-semibold text-white">
+                                {displayCompleted}
+                                <span className="text-xs text-gray-400 ml-1">
+                                  /{displayedEvents.length}
+                                </span>
+                              </div>
+                              <div className="text-xs text-gray-400">
+                                {displayedEvents.length > 0
+                                  ? `${Math.round((displayCompleted / displayedEvents.length) * 100)}%`
+                                  : "0%"}
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* Результаты по мероприятиям - компактный вид */}
+                          {displayedEvents.map((eventId) => {
+                            const event = student.events[eventId] as
+                              | StudentEvent
+                              | undefined;
+
+                            if (!event) {
+                              return (
+                                <td
+                                  key={eventId}
+                                  className="px-1 py-2 text-center border-r border-white/10"
+                                >
+                                  <div className="text-gray-400 text-xs">—</div>
+                                </td>
+                              );
+                            }
+
+                            const statusInfo = getEventStatus(event);
+
+                            return (
+                              <td
+                                key={eventId}
+                                className="px-1 py-2 text-center border-r border-white/10 group relative min-w-[60px] max-w-[80px]"
+                              >
+                                <div className="flex flex-col items-center gap-0.5">
+                                  {/* Статус */}
+                                  <div
+                                    className={`text-xs px-1 py-0.5 rounded-full font-medium min-w-[20px] ${statusInfo.color}`}
+                                  >
+                                    {statusInfo.status.charAt(0)}
+                                  </div>
+
+                                  {/* Баллы */}
+                                  <div className="text-xs font-bold text-emerald-400">
+                                    {event.total_score || 0}б
+                                  </div>
+
+                                  {/* Прогресс */}
+                                  <div className="text-xs text-gray-300">
+                                    {event.completed_stages_count}/
+                                    {event.min_stages_required}
+                                  </div>
+                                </div>
+
+                                {/* Тулкит при наведении */}
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 w-56 bg-gray-800/95 border border-white/20 rounded-lg p-2 z-30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 shadow-lg backdrop-blur-sm">
+                                  <div className="text-xs font-semibold text-white mb-2 pb-1 border-b border-white/10">
+                                    {event.event_name}
+                                  </div>
+                                  <div className="space-y-1 max-h-40 overflow-y-auto">
+                                    {event.stages.map((stage, stageIndex) => (
+                                      <div
+                                        key={stageIndex}
+                                        className="flex justify-between items-center text-xs"
+                                      >
+                                        <span className="text-gray-200 truncate mr-2">
+                                          {stage.name}
+                                        </span>
+                                        <span
+                                          className={`font-medium px-1.5 py-0.5 rounded min-w-[40px] text-center ${
+                                            stage.status === "зачет"
+                                              ? "bg-emerald-500/30 text-emerald-300"
+                                              : "bg-red-500/30 text-red-300"
+                                          }`}
+                                        >
+                                          {stage.current_score}б
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                  <div className="mt-2 text-xs text-gray-400">
+                                    Всего: {event.total_score} баллов
+                                  </div>
+                                </div>
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Индикатор скролла */}
+        {displayedEvents.length > 8 && (
+          <div className="mt-2 text-xs text-gray-400 text-center">
+            Используйте горизонтальный скролл или кнопки для просмотра всех
+            мероприятий
+          </div>
+        )}
       </div>
     </div>
   );

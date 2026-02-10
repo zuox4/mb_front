@@ -34,7 +34,7 @@ const CreateGroupForm = () => {
         onError: (error) => {
           setErrors(error.message || "Произошла ошибка при создании группы");
         },
-      }
+      },
     );
   };
 
@@ -48,7 +48,7 @@ const CreateGroupForm = () => {
     return (
       <button
         onClick={() => setIsVisible(true)}
-        className="flex items-center gap-2 w-fit bg-white/10 backdrop-blur-xs px-4 py-2 rounded-3xl cursor-pointer"
+        className="flex items-center gap-2 w-fit bg-white/10 backdrop-blur-xs px-4 py-2 rounded cursor-pointer"
       >
         <span className="text-white">Добавить класс</span>
         <Plus className="text-white cursor-pointer" />

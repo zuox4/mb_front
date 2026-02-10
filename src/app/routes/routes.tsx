@@ -22,7 +22,7 @@ import ClassLeaderPage from "@/pages/teacher/class-leader/class-leader-page";
 import EventLeaderPage from "@/pages/teacher/event-leader/event-leader-page";
 import ProjectLeaderPage from "@/pages/teacher/project-leader/project-leader-page";
 import WelcomePage from "@/pages/teacher/welcome-page";
-import { ArrowLeft } from "lucide-react";
+
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import TanStackQueryClientProvider from "../providers/query-client-provider";
 import EventsPage from "@/pages/student/events/eventsPage";
@@ -31,6 +31,8 @@ import ProfilePage from "@/pages/profile/Profile";
 import ClassTeacherDashboard from "@/components/teacher/class-teacher/ClassTeacherDashboard";
 import MyClassPage from "@/pages/teacher/class-leader/my-class";
 import ProjectOfficeAdminPage from "@/components/admin/ProjectOffices/ProjectOfficeAdminPage";
+import GroupInfoPage from "@/pages/teacher/admin/groups/group-info-page";
+import AdminWelcomePage from "@/pages/teacher/admin/AdminWelcomePage";
 
 export const router = createBrowserRouter([
   {
@@ -94,14 +96,7 @@ export const router = createBrowserRouter([
                     children: [
                       {
                         path: "",
-                        element: (
-                          <div className="text-white font-codec text-2xl">
-                            <div className="flex">
-                              <ArrowLeft />
-                              <span>Панель администратора(Клацай слева)</span>
-                            </div>
-                          </div>
-                        ),
+                        element: <AdminWelcomePage />,
                       },
                       {
                         path: "event-types",
@@ -135,6 +130,10 @@ export const router = createBrowserRouter([
                       {
                         path: "groups",
                         element: <GroupsPage />,
+                      },
+                      {
+                        path: "groups/:id",
+                        element: <GroupInfoPage />,
                       },
                     ],
                   },

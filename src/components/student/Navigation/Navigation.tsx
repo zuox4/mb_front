@@ -35,7 +35,7 @@ const Navigation = () => {
         <div className="absolute inset-0 rounded-3xl shadow-inner shadow-white/50" />
 
         {/* Навбар */}
-        <nav className="relative flex items-center justify-around px-1 py-2">
+        <nav className="relative flex items-center justify-around py-2">
           {navItems.map((item) => {
             const active = isActive(item.path);
             const Icon = item.icon;

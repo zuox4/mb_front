@@ -6,7 +6,7 @@ const AdminPage = () => {
     <div className="w-full">
       <div className="flex">
         <NavBar />
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-6 overflow-auto">
           <Outlet />
         </div>
       </div>

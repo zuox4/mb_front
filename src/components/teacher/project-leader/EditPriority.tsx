@@ -20,7 +20,7 @@ const EditPriority = ({
 }: EditPriorityProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const queryClient = useQueryClient();
-
+  console.log(p_office_id);
   const updatePriorityMutation = useMutation({
     mutationFn: async ({
       id,

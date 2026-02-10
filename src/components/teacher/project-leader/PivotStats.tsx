@@ -22,6 +22,7 @@ import EditPriority from "./EditPriority";
 
 interface PivotStatsProps {
   students: PivotStudent[];
+  p_office_id?: string;
 }
 
 interface EventStat {
@@ -39,7 +40,7 @@ interface EventStat {
   };
 }
 
-const PivotStats: React.FC<PivotStatsProps> = ({ students }) => {
+const PivotStats: React.FC<PivotStatsProps> = ({ students, p_office_id }) => {
   const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
   const [showList, setShowList] = useState<boolean>(true);
   const [showImportantOnly, setShowImportantOnly] = useState<boolean>(true);
@@ -50,7 +51,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({ students }) => {
     if (students.length === 0) return [];
 
     const allEventIds = Object.keys(students[0].events || {});
-
+    console.log(p_office_id);
     return allEventIds.map((eventId) => {
       const eventIdNum = parseInt(eventId);
       const eventName =
@@ -343,6 +344,7 @@ const PivotStats: React.FC<PivotStatsProps> = ({ students }) => {
                         <EditPriority
                           priority={event.is_important}
                           eventId={event.id}
+                          p_office_id={p_office_id}
                         />
                       </div>
                     </div>

@@ -174,18 +174,18 @@ function MarkBookPage() {
             <div className="relative mb-8">
               <div className="absolute  bg-gradient-to-r from-blue-500/10 via-transparent to-purple-500/10 blur-xl opacity-30" />
 
-              <div className="relative bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-1">
+              <div className="relative bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10">
                 <div className="flex rounded-lg overflow-hidden">
                   <button
                     onClick={() => setActiveTab("important")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 transition-all duration-300 relative ${
+                    className={`flex-1 flex items-center justify-center text-sm gap-2 py-2 px-2 transition-all duration-300 relative ${
                       activeTab === "important"
                         ? "bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-white"
                         : "text-white/70 hover:text-white hover:bg-white/5"
                     }`}
                   >
                     {/* <Star className="w-4 h-4" /> */}
-                    <span className="font-medium">Обязательные</span>
+                    <span className="font-medium ">Обязательные</span>
                     {activeTab === "important" && (
                       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-blue-400 to-blue-300 rounded-t-full" />
                     )}
@@ -204,7 +204,7 @@ function MarkBookPage() {
 
                   <button
                     onClick={() => setActiveTab("recommended")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 transition-all duration-300 relative ${
+                    className={`flex-1 flex items-center justify-center text-sm gap-2 py-2 px-2 transition-all duration-300 relative ${
                       activeTab === "recommended"
                         ? "bg-gradient-to-r from-green-500/20 to-green-600/20 text-white"
                         : "text-white/70 hover:text-white hover:bg-white/5"
@@ -227,30 +227,6 @@ function MarkBookPage() {
                   </button>
 
                   <div className="w-px bg-white/10" />
-
-                  <button
-                    onClick={() => setActiveTab("all")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 transition-all duration-300 relative ${
-                      activeTab === "all"
-                        ? "bg-gradient-to-r from-purple-500/20 to-purple-600/20 text-white"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
-                    }`}
-                  >
-                    <ListTodo className="w-4 h-4" />
-                    <span className="font-medium">Все</span>
-                    {activeTab === "all" && (
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-purple-400 to-purple-300 rounded-t-full" />
-                    )}
-                    <span
-                      className={`ml-1 text-xs px-1.5 py-0.5 rounded-full ${
-                        activeTab === "all"
-                          ? "bg-purple-500/40 text-purple-100"
-                          : "bg-white/10 text-white/60"
-                      }`}
-                    >
-                      {marks.marks.length}
-                    </span>
-                  </button>
                 </div>
               </div>
             </div>

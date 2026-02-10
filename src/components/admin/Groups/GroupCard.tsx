@@ -1,61 +1,78 @@
 import { Group } from "@/hooks/admin/useAdminGroups";
-import MoreButton from "../MoreButton";
+
+import { Star } from "lucide-react";
+
+import { useNavigate } from "react-router-dom";
 
 const GroupCard = ({ group }: { group: Group }) => {
   // Безопасно получаем первый проектный офис
   // const firstProjectOffice = group.project_offices?.[0];
   // const hasLogo = firstProjectOffice?.logo_url;
+  const navigate = useNavigate();
 
   return (
-    <div className="group relative w-40  bg-gradient-to-r from-sch-green-light/40 to-sch-green-light/20 hover:from-sch-green-light/50 hover:to-sch-green-light/30 hover:shadow-lg transition-all duration-300 rounded-xl p-4 border border-sch-green-light/30">
-      <div className="flex justify-between items-center gap-3">
-        {/* Логотип */}
-        {/* <div className="flex-shrink-0">
-          {hasLogo ? (
-            <img
-              className="w-30 object-contain rounded-lg"
-              src={`${STATIC_BASE_URL}/${firstProjectOffice.logo_url}`}
-              alt={`Логотип ${firstProjectOffice.title}`}
-              onError={(e) => {
-                // Fallback если изображение не загрузилось
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          ) : (
-            <div className="w-16 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-              <span className="text-white/50 text-xs text-center">
-                Нет лого
+    <div key={group.id} className="group cursor-pointer">
+      <div className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-200 h-full">
+        {/* Заголовок класса */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">
+                {group.name.split("-")[0]}
               </span>
             </div>
-          )}
-        </div> */}
+            <div>
+              <h3 className="text-xl font-bold text-white">{group.name}</h3>
+              <p className="text-gray-400 text-sm">
+                {(group.project_offices && group?.project_offices[0]?.title) ||
+                  ""}
+              </p>
+            </div>
+          </div>
 
-        {/* Информация о группе */}
-        {/* <div className="flex flex-col min-w-0"> */}
-        <span className="text-xl font-codec-news text-white truncate">
-          {group.name}
-        </span>
-        {/* <span className="text-white/80 font-codec-news text-sm truncate">
-            {!firstProjectOffice?.title && (
-              <span className="text-gray-400 italic">
-                Проектный офис не назначен
-              </span>
-            )}
-          </span> */}
-        {/* </div> */}
-
-        {/* Кнопка действий */}
-        <MoreButton
-          handleCardClick={() => console.log("Действие для группы:", group.id)}
-        />
-      </div>
-
-      {/* Бэйджик если несколько проектным офисов
-      {group.project_offices && group.project_offices.length > 1 && (
-        <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-          +{group.project_offices.length - 1}
+          {/* Рейтинг */}
+          <div className="flex flex-col items-end">
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${
+                    i < 4
+                      ? "fill-amber-400 text-amber-400"
+                      : "fill-gray-700 text-gray-700"
+                  }`}
+                />
+              ))}
+            </div>
+            <div className="text-xs text-gray-400 mt-1">4.0 рейтинг</div>
+          </div>
         </div>
-      )} */}
+
+        {/* Информация о классе */}
+
+        {/* Кнопка перехода */}
+        <div
+          className="mt-4 pt-4 border-t border-white/10 flex justify-between items-center"
+          onClick={() => navigate(`${group.id}`)}
+        >
+          <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+            Подробнее
+          </span>
+          <svg
+            className="w-5 h-5 text-gray-400 group-hover:text-white transform group-hover:translate-x-1 transition-all duration-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
   );
 };

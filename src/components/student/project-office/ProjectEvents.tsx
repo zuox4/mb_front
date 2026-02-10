@@ -60,7 +60,7 @@ const ProjectEvents = () => {
         <div className="flex space-x-1 bg-gray-900/50 p-1 rounded-xl">
           <button
             onClick={() => setActiveTab("all")}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-2 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-2 rounded-lg text-xs font-medium transition-all ${
               activeTab === "all"
                 ? "bg-white/10 text-white shadow-md"
                 : "text-gray-300 hover:text-white hover:bg-gray-800"
@@ -75,7 +75,7 @@ const ProjectEvents = () => {
 
           <button
             onClick={() => setActiveTab("important")}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-1 rounded-lg text-xs font-medium transition-all ${
               activeTab === "important"
                 ? "bg-red-600 text-white shadow-md"
                 : "text-gray-300 hover:text-white hover:bg-gray-800"
@@ -84,7 +84,7 @@ const ProjectEvents = () => {
             {/* <Star className="w-4 h-4" /> */}
             Важные
             <span
-              className={`text-xs px-2 py-0.5 rounded-full ${activeTab === "important" ? "bg-red-700 text-white" : "bg-gray-700 text-gray-300"}`}
+              className={`text-xs px-1 py-0.5 rounded-full ${activeTab === "important" ? "bg-red-700 text-white" : "bg-gray-700 text-gray-300"}`}
             >
               {importantEvents.length}
             </span>
@@ -92,7 +92,7 @@ const ProjectEvents = () => {
 
           <button
             onClick={() => setActiveTab("regular")}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs font-medium transition-all ${
               activeTab === "regular"
                 ? "bg-green-600 text-white shadow-md"
                 : "text-gray-300 hover:text-white hover:bg-gray-800"

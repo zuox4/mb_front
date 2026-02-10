@@ -16,7 +16,7 @@ const EventStats: React.FC<EventStatsProps> = ({ journalData }) => {
   const completionRate = (completedStudents / totalStudents) * 100;
 
   // Статистика по стадиям (берем максимум 3 для компактности)
-  const stageStats = journalData[0].stages.slice(0, 3).map((stage, index) => {
+  const stageStats = journalData[0].stages.map((stage, index) => {
     const completedInStage = journalData.filter(
       (student) => student.stages[index]?.status === "зачет",
     ).length;
