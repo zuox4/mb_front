@@ -7,7 +7,9 @@ const EventsPage = () => {
   return (
     <div className="min-h-screen">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-white font-codec text-2xl">Мероприятия</h1>
+        <h1 className="text-white font-bold text-2xl font-codec-news">
+          Мероприятия
+        </h1>
       </div>
       <div
         onClick={() => navigation("create-event")}

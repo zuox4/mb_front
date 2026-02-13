@@ -33,6 +33,7 @@ import MyClassPage from "@/pages/teacher/class-leader/my-class";
 import ProjectOfficeAdminPage from "@/components/admin/ProjectOffices/ProjectOfficeAdminPage";
 import GroupInfoPage from "@/pages/teacher/admin/groups/group-info-page";
 import AdminWelcomePage from "@/pages/teacher/admin/AdminWelcomePage";
+import AccessDenied from "@/pages/AccessDenied";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Navigate to={"/teacher"} /> },
+      { path: "access-denied", element: <AccessDenied /> },
       {
         path: "teacher",
         element: <ProtectedRoute requiredRole="teacher" />, // Только учителя

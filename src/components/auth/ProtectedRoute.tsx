@@ -2,6 +2,7 @@ import { useUserData } from "@/hooks/user/useUserData";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { Navigate, Outlet } from "react-router-dom";
 import Loader from "../owner/Loader";
+import { getDeviceType } from "@/lib/utils/deviceUtils";
 
 interface ProtectedRouteProps {
   requiredRole?:
@@ -17,6 +18,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requiredRole,
 }) => {
   const { isAuthenticated, user, isLoading, logout } = useAuthStore();
+  const device = getDeviceType();
+  console.log(device);
+
   const {
     data: userData,
     error,
@@ -26,6 +30,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   if (error) {
     logout();
   }
+
   if (isLoading || userLoading)
     return (
       <div className="min-h-screen">
@@ -36,7 +41,12 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
-
+  if (device === "desktop" && requiredRole?.includes("student")) {
+    return <Navigate to="/access-denied" state={{ role: "student" }} />;
+  }
+  if (device === "mobile" && requiredRole?.includes("teacher")) {
+    return <Navigate to="/access-denied" state={{ role: "teacher" }} />;
+  }
   // Проверка базовых ролей (student/teacher)
   if (requiredRole && ["student", "teacher"].includes(requiredRole)) {
     if (!user?.roles?.includes(requiredRole)) {

@@ -1,4 +1,5 @@
 // hooks/useEventTypes.ts
+
 import privateApi from "@/services/api/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -16,7 +17,8 @@ export const useEventTypes = () => {
   return useQuery({
     queryKey: ["event_types"],
     queryFn: fetchAllTypesEvents,
-    staleTime: 10 * 60 * 1000, // 10 минут - данные считаются свежими
+    staleTime: 0, // 10 минут - данные считаются свежими
+    
   });
 };
 
@@ -114,5 +116,22 @@ export const useDeleteEventType = () => {
     onError: (error: Error) => {
       console.error("Ошибка при удалении типа мероприятия:", error);
     },
+  });
+};
+
+
+
+
+export const useEventType = (id: number) => {
+  return useQuery({
+    queryKey: ["event-type", id],
+    queryFn: async () => {
+      const response = await privateApi.get(`/admin/event-types/${id}`);
+      return response.data;
+    },
+    staleTime: 0, // Данные всегда устаревшие
+    refetchOnMount: true, // Перезапрашивать при монтировании
+    refetchOnWindowFocus: true, // Перезапрашивать при фокусе окна
+    enabled: !!id, // Запрос выполняется только если есть id
   });
 };

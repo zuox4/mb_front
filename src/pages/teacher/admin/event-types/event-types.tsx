@@ -16,7 +16,9 @@ const EventTypesPage: React.FC = () => {
     <div className="min-h-screen ">
       {/* Заголовок и кнопка создания */}
       <div className="flex items-center mb-6">
-        <h1 className="text-white font-codec text-2xl">Типы мероприятий</h1>
+        <h1 className="text-white font-codec text-2xl font-codec-news font-bold">
+          Типы мероприятий
+        </h1>
       </div>
 
       {/* <CreateEventTypeButton onClick={() => setIsModalOpen(true)} /> */}

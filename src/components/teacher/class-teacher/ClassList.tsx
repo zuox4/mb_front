@@ -24,9 +24,10 @@ import {
 
 type Student = {
   id: number;
+  is_active: boolean;
   display_name: string;
   email: string;
-  is_active: boolean;
+
   group_name: string;
   phone: string | null;
   email_verified_at: string | null;
@@ -122,10 +123,8 @@ const ClassList = ({ classId }: { classId: number }) => {
   // Статистика по студентам
   const studentStats = {
     total: students.length,
-    is_verified: students.filter((s) => s.is_verified).length,
-    pending: students.filter(
-      (s) => !s.email_verified_at && s.verification_sent_at,
-    ).length,
+    is_active: students.filter((s) => s.is_active).length,
+    pending: students.length - students.filter((s) => s.is_active).length,
     archived: students.filter((s) => s.archived).length,
   };
 
@@ -349,7 +348,7 @@ const ClassList = ({ classId }: { classId: number }) => {
               </div>
               <div>
                 <div className="text-2xl font-bold text-white">
-                  {studentStats.is_verified}
+                  {studentStats.is_active}
                 </div>
                 <div className="text-sm text-white/60">Активированы</div>
               </div>
@@ -378,7 +377,7 @@ const ClassList = ({ classId }: { classId: number }) => {
               <div>
                 <div className="text-2xl font-bold text-white">
                   {Math.round(
-                    (studentStats.is_verified / studentStats.total) * 100,
+                    (studentStats.is_active / studentStats.total) * 100,
                   )}
                   %
                 </div>
@@ -393,14 +392,14 @@ const ClassList = ({ classId }: { classId: number }) => {
           <div className="flex justify-between text-sm text-white/60 mb-2">
             <span>Прогресс активации аккаунтов</span>
             <span>
-              {studentStats.is_verified}/{studentStats.total}
+              {studentStats.is_active}/{studentStats.total}
             </span>
           </div>
           <div className="h-2 bg-white/10 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-500"
               style={{
-                width: `${(studentStats.is_verified / studentStats.total) * 100}%`,
+                width: `${(studentStats.is_active / studentStats.total) * 100}%`,
               }}
             ></div>
           </div>
@@ -415,8 +414,7 @@ const ClassList = ({ classId }: { classId: number }) => {
               Список учеников
             </h2>
             <p className="text-white/60 text-sm">
-              {students.length} учеников • {studentStats.is_verified}{" "}
-              активированы
+              {students.length} учеников • {studentStats.is_active} активированы
             </p>
           </div>
           <div className="text-sm text-white/40">
@@ -445,29 +443,13 @@ const ClassList = ({ classId }: { classId: number }) => {
                         </div>
 
                         <div>
-                          <div className="flex items-center gap-2">
-                            {isEditing ? (
-                              <input
-                                type="text"
-                                value={
-                                  editData.display_name || student.display_name
-                                }
-                                onChange={(e) =>
-                                  setEditData({
-                                    ...editData,
-                                    display_name: e.target.value,
-                                  })
-                                }
-                                className="px-3 py-1 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-blue-500/50"
-                              />
-                            ) : (
-                              <span className="font-bold text-white text-lg">
-                                {student.display_name}
-                              </span>
-                            )}
+                          <div className="flex items-center gap-2 font-codec-news">
+                            <span className="font-bold text-white text-lg">
+                              {student.display_name}
+                            </span>
 
                             {/* Статус активации */}
-                            {!student.is_verified && (
+                            {!student.is_active && (
                               <span className="inline-flex items-center gap-1 px-2 py-1 bg-amber-500/20 text-amber-300 rounded-full text-xs border border-amber-500/30">
                                 <AlertCircle className="w-3 h-3" />
                                 <span>Требуется активация</span>

@@ -16,13 +16,13 @@ const EventTypeCard: React.FC<EventTypeCardProps> = ({ eventType }) => {
     navigate(`${eventType.id}`, { state: { eventType } });
 
   return (
-    <div className="cursor-pointer group relative bg-gradient-to-r from-sch-green-light/40 to-sch-green-light/20 hover:from-sch-green-light/50 hover:to-sch-green-light/30 hover:shadow-lg transition-all duration-300 rounded-xl p-4 border border-sch-green-light/30">
+    <div
+      onClick={handleCardClick}
+      className="cursor-pointer group relative bg-gradient-to-r from-sch-green-light/40 to-sch-green-light/20 hover:from-sch-green-light/50 hover:to-sch-green-light/30 hover:shadow-lg transition-all duration-300 rounded-xl p-4 border border-sch-green-light/30"
+    >
       <div className="flex items-start justify-between">
         {/* Основная информация */}
-        <div
-          className="flex-1 min-w-0 cursor-pointer items-center"
-          onClick={handleCardClick}
-        >
+        <div className="flex-1 min-w-0 cursor-pointer items-center">
           <div className="flex items gap-3">
             <div className="py-1  rounded-lg text-white">
               <Calendar className="w-4 h-4 text-white" />

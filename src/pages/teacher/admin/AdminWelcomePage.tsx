@@ -11,29 +11,25 @@ import {
   School,
   FileText,
   Settings,
-  UserCheck,
-  Bell,
-  Clock,
   Download,
   Star,
   CheckCircle,
 } from "lucide-react";
 
-interface Stats {
-  totalStudents: number;
-  totalTeachers: number;
-  totalClasses: number;
-  totalEvents: number;
-  activeProjects: number;
-  pendingActivations: number;
-  todayLogins: number;
-  completedEvents: number;
-}
+// interface Stats {
+//   totalStudents: number;
+//   totalTeachers: number;
+//   totalClasses: number;
+//   totalEvents: number;
+//   activeProjects: number;
+//   pendingActivations: number;
+//   todayLogins: number;
+//   completedEvents: number;
+// }
 
 const AdminWelcomePage = () => {
   const navigate = useNavigate();
 
-  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -41,19 +37,6 @@ const AdminWelcomePage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-
-        // Загрузка статистики (заглушка - замените на реальные API)
-        const mockStats: Stats = {
-          totalStudents: 245,
-          totalTeachers: 18,
-          totalClasses: 12,
-          totalEvents: 36,
-          activeProjects: 8,
-          pendingActivations: 7,
-          todayLogins: 142,
-          completedEvents: 24,
-        };
-        setStats(mockStats);
 
         // Загрузка последних активностей
       } catch (error) {
@@ -153,12 +136,12 @@ const AdminWelcomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen text-white p-6 font-codec">
+    <div className="min-h-screen text-white font-codec">
       {/* Приветствие */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-3xl font-bold text-white mb-2 font-codec-news">
               Добро пожаловать!
             </h1>
             <p className="text-gray-400 text-lg">
@@ -243,7 +226,7 @@ const AdminWelcomePage = () => {
       </div>
 
       {/* Статистика */}
-      {stats && (
+      {/* {stats && (
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">
             Общая статистика
@@ -362,7 +345,7 @@ const AdminWelcomePage = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Возможности администратора */}
       <div className="mb-8">

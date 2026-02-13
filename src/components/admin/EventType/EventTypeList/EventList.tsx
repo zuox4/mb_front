@@ -1,7 +1,5 @@
 // components/EventList.tsx
 
-import { useNavigate } from "react-router-dom";
-
 interface Event {
   id: string;
   title: string;
@@ -13,7 +11,6 @@ interface EventListProps {
 }
 
 export const EventList: React.FC<EventListProps> = ({ events }) => {
-  const navigate = useNavigate();
   return (
     <>
       <h4 className="text-lg font-medium text-white">
@@ -26,7 +23,6 @@ export const EventList: React.FC<EventListProps> = ({ events }) => {
             <span
               key={event.id}
               className="border truncate border-white text-white p-2 rounded-2xl cursor-pointer"
-              onClick={() => navigate(`/teacher/admin/events/${event.id}`)}
             >
               {event.title}
             </span>
