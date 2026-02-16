@@ -2,6 +2,9 @@ import React, { useState, useMemo } from "react";
 import { EventType } from "../types/event_type";
 import EventTypeCard from "./EventTypeCard";
 import { Search } from "lucide-react";
+import api from "@/services/api/api";
+import { useQueryClient } from "@tanstack/react-query";
+// import { toast } from "react-toastify";
 
 interface EventTypesListProps {
   eventTypes: EventType[];
@@ -13,6 +16,26 @@ const EventTypesList: React.FC<EventTypesListProps> = ({
   loading = false,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  // const [deletingId, setDeletingId] = useState<number | null>(null);
+  const queryClient = useQueryClient();
+
+  const archiveEventType = async (id: number) => {
+    try {
+      // setDeletingId(id);
+
+      // Отправляем запрос на удаление/архивацию
+      await api.post(`/event-types/${id}`);
+
+      // Показываем успешное сообщение
+
+      // Инвалидируем кэш, чтобы обновить список
+      queryClient.invalidateQueries({ queryKey: ["event_types"] });
+    } catch (error) {
+      console.error("Ошибка при архивации типа мероприятия:", error);
+    } finally {
+      // setDeletingId(null);
+    }
+  };
 
   // Фильтрация типов событий по названию
   const filteredEventTypes = useMemo(() => {
@@ -20,7 +43,7 @@ const EventTypesList: React.FC<EventTypesListProps> = ({
     if (!searchTerm.trim()) return eventTypes;
 
     return eventTypes.filter((eventType) =>
-      eventType.title.toLowerCase().includes(searchTerm.toLowerCase())
+      eventType.title.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [eventTypes, searchTerm]);
 
@@ -71,7 +94,12 @@ const EventTypesList: React.FC<EventTypesListProps> = ({
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {filteredEventTypes.map((eventType) => (
-            <EventTypeCard key={eventType.id} eventType={eventType} />
+            <EventTypeCard
+              key={eventType.id}
+              eventType={eventType}
+              onArchive={archiveEventType}
+              // isDeleting={deletingId === eventType.id}
+            />
           ))}
         </div>
       )}

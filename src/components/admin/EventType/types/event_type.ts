@@ -16,11 +16,12 @@ export type Stage = {
 };
 
 export type EventType = {
-  id?: number;
+  id: number;
   title: string;
   description: string;
   leader_id?: number | null;
   min_stages_for_completion: number;
+  is_archived: boolean;
   stages: Stage[];
   leader?: {
     id: number;
